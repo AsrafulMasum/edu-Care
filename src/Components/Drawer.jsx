@@ -1,8 +1,28 @@
+import { Link } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 
 
 const Drawer = () => {
+
+  const { user } = useAuth();
+
+  const navItems = (
+    <>
+      <li>
+        <Link to={"/"}>Home</Link>
+      </li>
+      <li>
+        <Link to={"/assignments"}>Assignments</Link>
+      </li>
+      {user && (
+        <li>
+          <Link to={"/myAssignment"}>My Assignment</Link>
+        </li>
+      )}
+    </>
+  );
   return (
-    <div className="drawer-side">
+    <div className="drawer-side z-50">
         <label
           htmlFor="my-drawer-3"
           aria-label="close sidebar"
@@ -10,12 +30,7 @@ const Drawer = () => {
         ></label>
         <ul className="menu p-4 w-80 min-h-full bg-base-200">
           {/* Sidebar content here */}
-          <li>
-            <a>Sidebar Item 1</a>
-          </li>
-          <li>
-            <a>Sidebar Item 2</a>
-          </li>
+          {navItems}
         </ul>
       </div>
   );

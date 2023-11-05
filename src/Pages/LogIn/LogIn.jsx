@@ -8,7 +8,7 @@ import useAuth from "../../Hooks/useAuth";
 const LogIn = () => {
   const [show, setShow] = useState(false);
 
-  const { signIn, googleSignIn, emailVerification, logOut } = useAuth();
+  const { signIn, googleSignIn } = useAuth();
 
   const { dark } = useData();
 
@@ -21,20 +21,20 @@ const LogIn = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
     form.reset();
+    
     signIn(email, password)
-      .then((res) => {
-        if (res.user.emailVerified) {
-          toast.success("Login Successful.");
-          navigate(location?.state ? location.state : "/");
-        } else {
-          emailVerification().then(() => {
-            toast.info("Please verify your email.");
-            logOut().then().catch();
-            return;
-          });
-        }
+      .then(() => {
+        // if (res.user.emailVerified) {
+        toast.success("Login Successful.");
+        navigate(location?.state ? location.state : "/");
+        // } else {
+        //   emailVerification().then(() => {
+        //     toast.info("Please verify your email.");
+        //     logOut().then().catch();
+        //     return;
+        //   });
+        // }
       })
       .catch((err) => {
         toast.error(err.message);

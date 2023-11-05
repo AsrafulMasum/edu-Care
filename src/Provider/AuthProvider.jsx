@@ -4,14 +4,14 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
-  sendEmailVerification,
+  // sendEmailVerification,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../Config/firebase/firebase.config";
-import axios from "axios";
+// import axios from "axios";
 
 export const AuthContext = createContext();
 
@@ -26,9 +26,9 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const emailVerification = () => {
-    return sendEmailVerification(auth.currentUser);
-  };
+  // const emailVerification = () => {
+  //   return sendEmailVerification(auth.currentUser);
+  // };
 
   const updateUser = (name, userPhotoURL) => {
     return updateProfile(auth.currentUser, {
@@ -60,7 +60,7 @@ const AuthProvider = ({ children }) => {
       // const loggedInUser = { email: userEmail };
       // if (currentUser) {
       //   axios
-      //     .post("https://travel-guru-server-psi-two.vercel.app/jwt", loggedInUser, {
+      //     .post("http://localhost:5000/jwt", loggedInUser, {
       //       withCredentials: true,
       //     })
       //     .then((res) => {
@@ -71,7 +71,7 @@ const AuthProvider = ({ children }) => {
       //     });
       // } else {
       //   axios
-      //     .post("https://travel-guru-server-psi-two.vercel.app/logout", loggedInUser, {
+      //     .post("http://localhost:5000/logout", loggedInUser, {
       //       withCredentials: true,
       //     })
       //     .then((res) => {
@@ -90,7 +90,7 @@ const AuthProvider = ({ children }) => {
     loading,
     setLoading,
     signUpWithEmail,
-    emailVerification,
+    // emailVerification,
     updateUser,
     signIn,
     googleSignIn,

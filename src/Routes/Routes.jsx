@@ -14,23 +14,23 @@ const Routes = createBrowserRouter([
     errorElement : <ErrorPage></ErrorPage>,
     children: [
       {
-        path: '/',
+        index: true,
         element: <Home></Home>
       },
       {
-        path: '/assignments',
+        path: 'assignments',
         element: <Assignments></Assignments>
       },
-      {
-        path: '/logIn',
-        element: <LogIn></LogIn>
-      },
-      {
-        path: '/signUp',
-        element: <SignUp></SignUp>
-      },
     ]
-  }
+  },
+  {
+    path: 'logIn',
+    element: <LogIn></LogIn>
+  },
+  {
+    path: 'signUp',
+    element: <SignUp></SignUp>
+  },
 ])
 
 export default Routes;

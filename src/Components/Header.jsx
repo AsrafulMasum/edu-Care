@@ -2,8 +2,7 @@ import PropTypes from "prop-types";
 import Drawer from "./Drawer";
 import Navbar from "./Navbar";
 
-
-const Header = ({children}) => {
+const Header = ({ children }) => {
   return (
     <div className="drawer">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />

@@ -9,7 +9,7 @@ const SignUp = () => {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
 
-  const { emailVerification, signUpWithEmail, updateUser, logOut } = useAuth();
+  const { signUpWithEmail, updateUser, logOut } = useAuth();
 
   const {dark} = useData()
 
@@ -40,9 +40,9 @@ const SignUp = () => {
     } else {
       signUpWithEmail(email, password)
         .then(() => {
-          emailVerification().then(() => {
-            toast.info("Please verify your email.");
-          });
+          // emailVerification().then(() => {
+          //   toast.info("Please verify your email.");
+          // });
           toast.success("Sign Up Successful.");
           updateUser(name, photoURL)
             .then(() => {
@@ -54,7 +54,7 @@ const SignUp = () => {
           logOut().then().catch();
           navigate("/login");
 
-          fetch("https://travel-guru-server-psi-two.vercel.app/users", {
+          fetch("http://localhost:5000/users", {
             method: "POST",
             headers: {
               "content-type": "application/json",
