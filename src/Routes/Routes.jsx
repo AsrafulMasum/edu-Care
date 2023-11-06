@@ -7,6 +7,7 @@ import LogIn from "../Pages/LogIn/LogIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import AddAssignment from "../Pages/AddAssignment/AddAssignment";
 import PrivateRoutes from "./PrivateRoutes";
+import AssignmentDetails from "../Pages/Assignments/AssignmentDetails";
 
 
 const Routes = createBrowserRouter([
@@ -28,6 +29,14 @@ const Routes = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <AddAssignment></AddAssignment>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "assignmentDetails/:id",
+        element: (
+          <PrivateRoutes>
+            <AssignmentDetails></AssignmentDetails>
           </PrivateRoutes>
         ),
       },

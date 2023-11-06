@@ -1,6 +1,7 @@
 import useData from "../../Hooks/useData";
 import axios from "axios";
 import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const AddAssignment = () => {
   const { dark } = useData();
@@ -36,7 +37,15 @@ const AddAssignment = () => {
     // setAssignmentData(assignment);
     axios
       .post("http://localhost:5000/assignments", assignment)
-      .then((res) => console.log(res.data));
+      .then((res) => {
+        if(res.data.acknowledged){
+          Swal.fire({
+            title: "Created.",
+            text: "Your assignment has been created.",
+            icon: "success"
+          });
+        }
+      });
   };
   // const {isPending, error, data} = useQuery({
   //   queryKey: ['assignment-post'],

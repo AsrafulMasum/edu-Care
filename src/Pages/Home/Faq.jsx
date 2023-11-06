@@ -14,7 +14,7 @@ const Faq = () => {
       element.classList.add("collapse-open");
     }
   };
-  console.log(open);
+  
   return (
     <div className="bg-white py-20">
       <Container>
