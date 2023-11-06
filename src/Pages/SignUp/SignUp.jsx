@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
-import { toast } from "react-toastify";
 import useAuth from "../../Hooks/useAuth";
 import useData from "../../Hooks/useData";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const [show, setShow] = useState(false);
@@ -31,11 +31,14 @@ const SignUp = () => {
     };
     const passwordRegex =
       /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/;
+
+    const toastId = toast.loading('Signing Up...')
+
     if (password !== confirmPassword) {
-      toast.error("Please confirm your password.");
+      toast.error("Please confirm your password." ,{id: toastId});
     } else if (!passwordRegex.test(password)) {
       toast.error(
-        "Password must have 6 characters and one letter and one special character."
+        "Password must have 6 characters and one letter and one special character.", {id: toastId}
       );
     } else {
       signUpWithEmail(email, password)
@@ -43,13 +46,13 @@ const SignUp = () => {
           // emailVerification().then(() => {
           //   toast.info("Please verify your email.");
           // });
-          toast.success("Sign Up Successful.");
+          toast.success("Sign Up Successful.", {id: toastId});
           updateUser(name, photoURL)
             .then(() => {
-              toast.success("Profile Updated.");
+              toast.success("Profile Updated.", {id: toastId});
             })
             .catch((err) => {
-              toast.error(err.message);
+              toast.error(err.message, {id: toastId});
             });
           logOut().then().catch();
           navigate("/login");
@@ -67,7 +70,7 @@ const SignUp = () => {
             });
         })
         .catch((err) => {
-          toast.error(err.message);
+          toast.error(err.message, {id: toastId});
         });
     }
   };

@@ -40,7 +40,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="z-50">
+    <div className="z-50 sticky top-0 bg-primary-color" >
       <Container>
         <div className="w-full navbar px-0">
           <div className="flex-none lg:hidden">
@@ -66,7 +66,9 @@ const Navbar = () => {
           </div>
           <div className="flex-1 flex items-center gap-2">
             <img className="w-10" src={logo} alt="Logo" />
-            <span className="text-lg font-bold text-secondary-color">eduCare</span>
+            <span className="text-lg font-bold text-secondary-color">
+              eduCare
+            </span>
           </div>
           <div>
             <div className="flex-none hidden lg:block">
@@ -109,8 +111,8 @@ const Navbar = () => {
                   to={"/logIn"}
                   className={
                     dark
-                      ? "btn normal-case btn-sm px-6 bg-primary hover:bg-primary text-white font-medium"
-                      : "btn normal-case btn-sm px-6 bg-primary hover:bg-primary font-medium"
+                      ? "btn normal-case btn-sm px-6 bg-primary hover:bg-primary text-white font-medium border-none"
+                      : "btn normal-case btn-sm px-6 bg-primary hover:bg-primary font-medium border-none"
                   }
                 >
                   Log In
@@ -123,9 +125,9 @@ const Navbar = () => {
             className="inline-block ml-4 cursor-pointer"
           >
             {dark ? (
-              <BsSun className="text-xl"></BsSun>
+              <BsSun className="text-xl text-secondary-color"></BsSun>
             ) : (
-              <CiDark className="text-xl"></CiDark>
+              <CiDark className="text-xl text-secondary-color"></CiDark>
             )}
           </div>
         </div>

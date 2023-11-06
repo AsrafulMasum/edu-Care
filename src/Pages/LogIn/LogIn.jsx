@@ -1,9 +1,9 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
-import { toast } from "react-toastify";
 import useData from "../../Hooks/useData";
 import { useState } from "react";
 import useAuth from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 const LogIn = () => {
   const [show, setShow] = useState(false);
@@ -22,11 +22,13 @@ const LogIn = () => {
     const email = form.email.value;
     const password = form.password.value;
     form.reset();
+
+    const toastId = toast.loading('Logging In...')
     
     signIn(email, password)
       .then(() => {
         // if (res.user.emailVerified) {
-        toast.success("Login Successful.");
+        toast.success("Login Successful.", {id: toastId});
         navigate(location?.state ? location.state : "/");
         // } else {
         //   emailVerification().then(() => {
@@ -37,7 +39,7 @@ const LogIn = () => {
         // }
       })
       .catch((err) => {
-        toast.error(err.message);
+        toast.error(err.message, {id: toastId});
       });
   };
 
