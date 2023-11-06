@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "./useAxiosSecure";
 
 
-const usePostData = (url, userInfo) => {
+const usePostData = (url, info) => {
   const axiosSecure = useAxiosSecure();
   const [data, setData] = useState([]);
   useEffect(() => {
-    axiosSecure.post(url, userInfo).then((res) => {
+    axiosSecure.post(url, info).then((res) => {
       setData(res.data);
     });
-  }, [url, axiosSecure, userInfo]);
+  }, [url, axiosSecure, info]);
   return data;
 };
 export default usePostData;

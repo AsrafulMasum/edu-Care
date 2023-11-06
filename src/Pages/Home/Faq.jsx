@@ -39,11 +39,11 @@ const Faq = () => {
                   type="radio"
                   name="my-accordion"
                 />
-                <div className="collapse-title text-xl font-medium">
+                <div className="collapse-title text-xl font-medium text-secondary-color">
                   What is the purpose of this assignment website?
                 </div>
                 <div className="collapse-content">
-                  <p>
+                  <p className="text-active-color">
                     This assignment website serves as a platform for students to
                     access and submit assignments, receive instructions, and
                     track their progress throughout the course.
@@ -60,11 +60,11 @@ const Faq = () => {
                   type="radio"
                   name="my-accordion"
                 />
-                <div className="collapse-title text-xl font-medium">
+                <div className="collapse-title text-xl font-medium text-secondary-color">
                   How do I submit an assignment on the website?
                 </div>
                 <div className="collapse-content">
-                  <p>
+                  <p className="text-active-color">
                     Log in to your account, go to the &#34;Assignments&#34;
                     section, select the assignment you want to submit, and
                     follow the instructions for uploading your assignment file.
@@ -81,11 +81,11 @@ const Faq = () => {
                   type="radio"
                   name="my-accordion"
                 />
-                <div className="collapse-title text-xl font-medium">
+                <div className="collapse-title text-xl font-medium text-secondary-color">
                   How do I check the status of my assignment and view feedback?
                 </div>
                 <div className="collapse-content">
-                  <p>
+                  <p className="text-active-color">
                     You can view your assignment&#39;s status and feedback in
                     the or &#34;My Assignments&#34; section. Your instructor
                     will provide feedback and grades there.
@@ -102,11 +102,11 @@ const Faq = () => {
                   type="radio"
                   name="my-accordion"
                 />
-                <div className="collapse-title text-xl font-medium">
+                <div className="collapse-title text-xl font-medium text-secondary-color">
                   Is there a deadline for assignment submission?
                 </div>
                 <div className="collapse-content">
-                  <p>
+                  <p className="text-active-color">
                     Yes, assignments typically have set deadlines. The deadline
                     will be specified in the assignment details, and late
                     submissions may not be accepted.
@@ -123,11 +123,11 @@ const Faq = () => {
                   type="radio"
                   name="my-accordion"
                 />
-                <div className="collapse-title text-xl font-medium">
+                <div className="collapse-title text-xl font-medium text-secondary-color">
                   Is my personal information secure on the assignment website?
                 </div>
                 <div className="collapse-content">
-                  <p>
+                  <p className="text-active-color">
                     Yes, reputable assignment websites prioritize the security
                     of your personal information. They use encryption and
                     security measures to protect your data.
@@ -144,11 +144,11 @@ const Faq = () => {
                   type="radio"
                   name="my-accordion"
                 />
-                <div className="collapse-title text-xl font-medium">
+                <div className="collapse-title text-xl font-medium text-secondary-color">
                   What file formats are accepted for assignment submissions?
                 </div>
                 <div className="collapse-content">
-                  <p>
+                  <p className="text-active-color">
                     The accepted file formats may vary, but common formats
                     include PDF, Word documents (DOC/DOCX). Check the assignment
                     instructions for specific requirements.
