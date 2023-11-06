@@ -16,7 +16,7 @@ const Faq = () => {
   };
   console.log(open);
   return (
-    <div className="bg-white py-10">
+    <div className="bg-white py-20">
       <Container>
         <section>
           <div className="text-center mb-10 space-y-4">
@@ -27,8 +27,8 @@ const Faq = () => {
               Frequency And Questions
             </h2>
           </div>
-          <div className="flex gap-4">
-            <div className="w-1/2">
+          <div className="flex flex-col-reverse lg:flex-row gap-10 items-center">
+            <div className="lg:w-1/2">
               <div
                 id="accordion1"
                 className="collapse collapse-arrow cursor-pointer"
@@ -156,8 +156,8 @@ const Faq = () => {
                 </div>
               </div>
             </div>
-            <div className="w-1/2">
-              <img
+            <div className="lg:w-1/2">
+              <img className="w-full"
                 src="https://themeforest.wprealizer.com/html-educoda-preview/educoda/assets/images/faq-img.png"
                 alt=""
               />

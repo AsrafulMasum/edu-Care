@@ -20,12 +20,12 @@ const Hero = () => {
         >
           <Container>
             <div className="text-center">
-              <p className="text-2xl text-white mb-6 mt-20">
+              <p className="text-lg md:text-2xl text-white mb-6 mt-20">
                 Looking For{" "}
                 <span className="text-active-color font-semibold">Help</span>{" "}
                 From Premier Assignment.
               </p>
-              <h2 className="text-7xl font-medium text-white w-5/6 mx-auto leading-snug">
+              <h2 className="text-5xl md:text-7xl font-medium text-white w-5/6 mx-auto leading-snug">
                 <span className="bg-gradient-to-r from-secondary-color to-primary-color text-transparent bg-clip-text">
                   Assignment
                 </span>{" "}

@@ -66,7 +66,7 @@ const Navbar = () => {
           </div>
           <div className="flex-1 flex items-center gap-2">
             <img className="w-10" src={logo} alt="Logo" />
-            <span className="text-lg font-bold text-secondary-color">
+            <span className="text-xl font-bold text-secondary-color">
               eduCare
             </span>
           </div>
