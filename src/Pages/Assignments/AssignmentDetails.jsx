@@ -12,11 +12,17 @@ const AssignmentDetails = () => {
   const { user } = useAuth();
   const { dark } = useData();
 
-  const userEmail = user?.email
+  const userEmail = user?.email;
 
-  const url = `http://localhost:5000/assignments/${id}`;
+  const assignmentUrl = `http://localhost:5000/assignments/${id}`;
+  const submittedAssignmentUrl = "http://localhost:5000/submittedAssignments";
 
-  const assignment = useLoadData(url, false);
+  const assignment = useLoadData(assignmentUrl, false);
+  const submittedAssignment = useLoadData(submittedAssignmentUrl, false);
+
+  const assignmentID = assignment?._id;
+
+  const exists = submittedAssignment?.find(assignment => assignment?.assignmentID === assignmentID)
 
   const navigate = useNavigate();
 
@@ -64,18 +70,30 @@ const AssignmentDetails = () => {
     const submittedData = {
       pdf,
       quickNote,
-      submittedEmail: userEmail
+      submittedEmail: userEmail,
+      status: "pending",
+      assignmentID,
     };
 
-    axios.post("http://localhost:5000/submittedAssignment", submittedData).then((res) => {
-      if (res.data.insertedId) {
-        Swal.fire({
-          title: "Submitted.",
-          text: "Your assignment has been submitted.",
-          icon: "success",
+    if (exists) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You already submitted this assignment !",
+      });
+    } else {
+      axios
+        .post("http://localhost:5000/submittedAssignments", submittedData)
+        .then((res) => {
+          if (res.data.insertedId) {
+            Swal.fire({
+              title: "Submitted.",
+              text: "Your assignment has been submitted.",
+              icon: "success",
+            });
+          }
         });
-      }
-    });
+    }
   };
 
   return (
