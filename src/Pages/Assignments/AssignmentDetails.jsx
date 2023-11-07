@@ -4,11 +4,15 @@ import Container from "../../Layout/Container";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { GiNotebook } from "react-icons/gi";
+import useData from "../../Hooks/useData";
 
 const AssignmentDetails = () => {
   const { id } = useParams();
-
   const { user } = useAuth();
+  const { dark } = useData();
+
+  const userEmail = user?.email
 
   const url = `http://localhost:5000/assignments/${id}`;
 
@@ -51,6 +55,29 @@ const AssignmentDetails = () => {
     }
   };
 
+  const handleSubmitAssignment = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const pdf = form.pdf.value;
+    const quickNote = form.quickNote.value;
+
+    const submittedData = {
+      pdf,
+      quickNote,
+      submittedEmail: userEmail
+    };
+
+    axios.post("http://localhost:5000/submittedAssignment", submittedData).then((res) => {
+      if (res.data.insertedId) {
+        Swal.fire({
+          title: "Submitted.",
+          text: "Your assignment has been submitted.",
+          icon: "success",
+        });
+      }
+    });
+  };
+
   return (
     <div>
       <Container>
@@ -63,9 +90,17 @@ const AssignmentDetails = () => {
 
           <div className="p-6">
             <div>
-              <span className="text-xs font-medium text-blue-600 uppercase dark:text-blue-400">
-                {assignment?.difficulty}
-              </span>
+              <div className="flex items-center gap-8">
+                <span className="text-xs font-medium text-blue-600 uppercase dark:text-blue-400">
+                  {assignment?.difficulty}
+                </span>
+                <div className="flex items-center gap-1">
+                  <GiNotebook className="text-active-color"></GiNotebook>
+                  <span className="text-xs font-medium text-blue-600 uppercase dark:text-blue-400">
+                    {assignment?.marks}
+                  </span>
+                </div>
+              </div>
               <p
                 className="block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white"
                 tabIndex="0"
@@ -119,15 +154,53 @@ const AssignmentDetails = () => {
                         id="my_modal_5"
                         className="modal modal-bottom sm:modal-middle"
                       >
-                        <div className="modal-box">
-                          <h3 className="font-bold text-lg">Hello!</h3>
+                        <div className="modal-box text-center">
+                          <h3 className="font-bold text-lg">
+                            Submit Your Assignment !
+                          </h3>
                           <p className="py-4">
-                            Press ESC key or click the button below to close
+                            Submit your assignment PDF link here
                           </p>
-                          <div className="modal-action">
+                          <form onSubmit={handleSubmitAssignment}>
+                            <div>
+                              <input
+                                type="url"
+                                name="pdf"
+                                placeholder="PDF Link"
+                                required
+                                className={
+                                  dark
+                                    ? "block w-full text-xs placeholder:text-white text-white py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                                    : "block w-full text-xs placeholder:text-[#000000] text-[#000000] py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                                }
+                              />
+                            </div>
+                            <div>
+                              <textarea
+                                type="text"
+                                name="quickNote"
+                                placeholder="Quick Note"
+                                required
+                                className={
+                                  dark
+                                    ? "block w-full text-xs placeholder:text-white text-white py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                                    : "block w-full text-xs placeholder:text-[#000000] text-[#000000] py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                                }
+                              />
+                            </div>
+                            {/* if there is a button in form, it will close the modal */}
+                            <button
+                              type="submit"
+                              className="btn px-10 mt-10 normal-case bg-active-color border-none text-white font-bold tracking-wide"
+                            >
+                              Submit
+                            </button>
+                          </form>
+                          <div>
                             <form method="dialog">
-                              {/* if there is a button in form, it will close the modal */}
-                              <button className="btn">Close</button>
+                              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                                ✕
+                              </button>
                             </form>
                           </div>
                         </div>
