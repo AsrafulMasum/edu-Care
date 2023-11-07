@@ -2,12 +2,22 @@ import useData from "../../Hooks/useData";
 import axios from "axios";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
+import { useState } from "react";
+import { SlCalender } from "react-icons/sl";
 
 const AddAssignment = () => {
   const { dark } = useData();
 
   const { user } = useAuth();
   const userEmail = user.email;
+
+  const [endDate, setEndDate] = useState(new Date());
+
+  const date = endDate.toString().split(" ")
+  const exactDate = date.slice(0, 5)
+  const dueDate = exactDate.join(' ')
 
   // const [assignmentData, setAssignmentData] = useState({})
 
@@ -19,7 +29,6 @@ const AddAssignment = () => {
     const title = form.title.value;
     const difficulty = form.difficulty.value;
     const marks = form.marks.value;
-    const dueDate = form.dueDate.value;
     const photoURL = form.photoURL.value;
     const description = form.description.value;
 
@@ -35,17 +44,15 @@ const AddAssignment = () => {
       userEmail,
     };
     // setAssignmentData(assignment);
-    axios
-      .post("http://localhost:5000/assignments", assignment)
-      .then((res) => {
-        if(res.data.acknowledged){
-          Swal.fire({
-            title: "Created.",
-            text: "Your assignment has been created.",
-            icon: "success"
-          });
-        }
-      });
+    axios.post("http://localhost:5000/assignments", assignment).then((res) => {
+      if (res.data.acknowledged) {
+        Swal.fire({
+          title: "Created.",
+          text: "Your assignment has been created.",
+          icon: "success",
+        });
+      }
+    });
   };
   // const {isPending, error, data} = useQuery({
   //   queryKey: ['assignment-post'],
@@ -133,7 +140,7 @@ const AddAssignment = () => {
             />
           </div>
 
-          <div>
+          {/* <div>
             <input
               type="date"
               name="dueDate"
@@ -145,6 +152,26 @@ const AddAssignment = () => {
                   : "block w-full text-xs placeholder:text-[#000000] text-[#000000] py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
               }
             />
+          </div> */}
+
+          <div
+            className={
+              dark
+                ? "block w-full text-xs placeholder:text-white text-white py-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                : "block w-full text-xs placeholder:text-[#000000] text-[#000000] py-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+            }
+          >
+            <DatePicker
+              className={
+                dark
+                  ? "text-xs cursor-pointer h-full w-full placeholder:text-white text-white bg-transparent focus:outline-none focus:bg-transparent"
+                  : "text-xs cursor-pointer h-full w-full placeholder:text-[#000000] text-[#000000] bg-transparent focus:outline-none focus:bg-transparent"
+              }
+              showIcon
+              selected={endDate}
+              onChange={(date) => setEndDate(date)}
+              icon={<SlCalender className="text-sm -mt-[1px]"></SlCalender>}
+            ></DatePicker>
           </div>
 
           <div>
