@@ -17,28 +17,38 @@ const AssignmentDetails = () => {
   const navigate = useNavigate();
 
   const handleDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios.delete(`http://localhost:5000/assignments/${id}`).then((res) => {
-          if (res.data.deletedCount > 0) {
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your assignment has been deleted.",
-              icon: "success",
+    if (user?.email === assignment?.userEmail) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .delete(`http://localhost:5000/assignments/${id}`)
+            .then((res) => {
+              if (res.data.deletedCount > 0) {
+                Swal.fire({
+                  title: "Deleted!",
+                  text: "Your assignment has been deleted.",
+                  icon: "success",
+                });
+                navigate("/assignments");
+              }
             });
-            navigate("/assignments");
-          }
-        });
-      }
-    });
+        }
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You can't delete this assignment!",
+      });
+    }
   };
 
   return (
@@ -89,12 +99,40 @@ const AssignmentDetails = () => {
                     </p>
                   </div>
                   <div className="flex gap-4">
-                    {user?.email === assignment?.userEmail && (
-                      <Link onClick={() => handleDelete(assignment?._id)} className="btn px-10 normal-case bg-transparent text-white font-bold tracking-wide">
-                        Delete
+                    <Link
+                      onClick={() => handleDelete(assignment?._id)}
+                      className="btn px-10 normal-case bg-transparent text-white font-bold tracking-wide"
+                    >
+                      Delete
+                    </Link>
+
+                    <div>
+                      <Link
+                        className="btn px-10 normal-case bg-active-color border-none text-white font-bold tracking-wide"
+                        onClick={() =>
+                          document.getElementById("my_modal_5").showModal()
+                        }
+                      >
+                        Take Assignment
                       </Link>
-                    )}
-                    <Link className="btn">Take Assignment</Link>
+                      <dialog
+                        id="my_modal_5"
+                        className="modal modal-bottom sm:modal-middle"
+                      >
+                        <div className="modal-box">
+                          <h3 className="font-bold text-lg">Hello!</h3>
+                          <p className="py-4">
+                            Press ESC key or click the button below to close
+                          </p>
+                          <div className="modal-action">
+                            <form method="dialog">
+                              {/* if there is a button in form, it will close the modal */}
+                              <button className="btn">Close</button>
+                            </form>
+                          </div>
+                        </div>
+                      </dialog>
+                    </div>
                   </div>
                 </div>
               </div>

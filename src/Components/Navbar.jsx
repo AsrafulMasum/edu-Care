@@ -45,7 +45,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="z-50 sticky top-0 bg-primary-color" >
+    <div className="z-50 sticky top-0 bg-primary-color">
       <Container>
         <div className="w-full navbar px-0">
           <div className="flex-none lg:hidden">
@@ -92,6 +92,7 @@ const Navbar = () => {
                     >
                       <div className="w-10 rounded-full">
                         <img
+                          title={user?.email}
                           src={user?.photoURL ? user.photoURL : defaultUser}
                           alt="User"
                         />
@@ -112,16 +113,28 @@ const Navbar = () => {
                   </ul>
                 </div>
               ) : (
-                <Link
-                  to={"/logIn"}
-                  className={
-                    dark
-                      ? "btn normal-case btn-sm px-6 bg-primary hover:bg-primary text-white font-medium border-none"
-                      : "btn normal-case btn-sm px-6 bg-primary hover:bg-primary font-medium border-none"
-                  }
-                >
-                  Log In
-                </Link>
+                <div>
+                  <Link
+                    to={"/logIn"}
+                    className={
+                      dark
+                        ? "btn normal-case btn-sm px-6 bg-primary hover:bg-primary text-white font-medium border-none mr-2"
+                        : "btn normal-case btn-sm px-6 bg-primary hover:bg-primary font-medium border-none mr-2"
+                    }
+                  >
+                    Log In
+                  </Link>
+                  <Link
+                    to={"/signUp"}
+                    className={
+                      dark
+                        ? "btn normal-case btn-sm px-6 bg-primary hover:bg-primary text-white font-medium border-none"
+                        : "btn normal-case btn-sm px-6 bg-primary hover:bg-primary font-medium border-none"
+                    }
+                  >
+                    Sign Up
+                  </Link>
+                </div>
               )}
             </div>
           </div>

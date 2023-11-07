@@ -15,9 +15,9 @@ const AddAssignment = () => {
 
   const [endDate, setEndDate] = useState(new Date());
 
-  const date = endDate.toString().split(" ")
-  const exactDate = date.slice(0, 5)
-  const dueDate = exactDate.join(' ')
+  const date = endDate.toString().split(" ");
+  const exactDate = date.slice(0, 5);
+  const dueDate = exactDate.join(" ");
 
   // const [assignmentData, setAssignmentData] = useState({})
 
@@ -42,6 +42,7 @@ const AddAssignment = () => {
       photoURL,
       description,
       userEmail,
+      endDate,
     };
     // setAssignmentData(assignment);
     axios.post("http://localhost:5000/assignments", assignment).then((res) => {

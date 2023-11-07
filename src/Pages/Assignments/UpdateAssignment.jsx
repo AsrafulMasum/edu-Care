@@ -1,27 +1,42 @@
 import { SlCalender } from "react-icons/sl";
 import useData from "../../Hooks/useData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useLoadData from "../../Hooks/useLoadData";
-
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const UpdateAssignment = () => {
-
   const { dark } = useData();
-
   const { id } = useParams();
-
+  const navigate = useNavigate();
+  const [endDate, setEndDate] = useState(new Date());
+  const [dueDate, setDueDate] = useState()
   const url = `http://localhost:5000/assignments/${id}`;
 
   const assignment = useLoadData(url, false);
   console.log(assignment);
 
-  const [endDate, setEndDate] = useState(new Date());
+  useEffect(() => {
+    const selectOption = document.getElementById("difficultyLevel");
 
-  const date = endDate.toString().split(" ")
-  const exactDate = date.slice(0, 5)
-  const dueDate = exactDate.join(' ')
+    if (assignment?.difficulty === "Easy") {
+      selectOption.value = "Easy";
+    } else if (assignment?.difficulty === "Medium") {
+      selectOption.value = "Medium";
+    } else {
+      selectOption.value = "Hard";
+    }
+    // const prevDate = new Date(assignment?.endDate)
+    // setEndDate(prevDate)
+    if(endDate){
+      const date = endDate.toString().split(" ");
+      const exactDate = date.slice(0, 4);
+      const stringDate = exactDate.join(" ");
+      setDueDate(stringDate)
+    }
+  }, [assignment, endDate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,17 +47,40 @@ const UpdateAssignment = () => {
     const photoURL = form.photoURL.value;
     const description = form.description.value;
 
-    form.reset();
+    // form.reset();
 
-    const assignment = {
+    const updatedAssignment = {
       title,
       difficulty,
       marks,
       dueDate,
       photoURL,
       description,
+      endDate,
     };
-    console.log(assignment);
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to update this assignment?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, update it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.put(`http://localhost:5000/assignments/${id}`, updatedAssignment).then((res) => {
+          if (res.data.modifiedCount > 0) {
+            Swal.fire({
+              title: "Updated!",
+              text: "Your assignment has been update.",
+              icon: "success",
+            });
+            navigate("/assignments");
+          }
+        });
+      }
+    });
   };
 
   return (
@@ -59,7 +97,7 @@ const UpdateAssignment = () => {
     >
       <div className="w-full max-w-4xl p-6 m-auto mx-auto rounded border border-[#ABABAB]">
         <div>
-          <h2 className="text-lg font-bold">Insert a Assignment</h2>
+          <h2 className="text-lg font-bold">Update a Assignment</h2>
         </div>
 
         <form onSubmit={handleSubmit} className="mt-6">
@@ -69,6 +107,7 @@ const UpdateAssignment = () => {
               name="title"
               placeholder="Title"
               required
+              defaultValue={assignment?.title}
               className={
                 dark
                   ? "block w-full text-xs placeholder:text-white text-white py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
@@ -85,6 +124,7 @@ const UpdateAssignment = () => {
             }
           >
             <select
+              id="difficultyLevel"
               name="difficulty"
               className={
                 dark
@@ -109,6 +149,7 @@ const UpdateAssignment = () => {
               type="text"
               name="marks"
               placeholder="Assignment Marks"
+              defaultValue={assignment?.marks}
               required
               className={
                 dark
@@ -157,6 +198,7 @@ const UpdateAssignment = () => {
               type="text"
               name="photoURL"
               placeholder="Photo URL"
+              defaultValue={assignment?.photoURL}
               required
               className={
                 dark
@@ -171,6 +213,7 @@ const UpdateAssignment = () => {
               type="text"
               name="description"
               placeholder="Description"
+              defaultValue={assignment?.description}
               required
               className={
                 dark
