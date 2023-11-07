@@ -3,8 +3,11 @@ import { AiTwotoneHourglass } from "react-icons/ai";
 import { GiNotebook } from "react-icons/gi";
 import { SlCalender } from "react-icons/sl";
 import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
-const AssignmentCard = ({ assignment, handleDelete }) => {
+const AssignmentCard = ({ assignment }) => {
+
+  const { user } = useAuth();
 
   return (
     <div>
@@ -55,12 +58,14 @@ const AssignmentCard = ({ assignment, handleDelete }) => {
             >
               Details
             </Link>
-            <button
-              onClick={() => handleDelete(assignment?._id)}
-              className="btn px-10 normal-case bg-transparent text-white font-bold tracking-wide"
-            >
-              Delete
-            </button>
+            {user?.email === assignment?.userEmail && (
+              <Link
+                to={`/assignmentDetails/update/${assignment?._id}`}
+                className="btn px-10 normal-case bg-transparent text-white font-bold tracking-wide"
+              >
+                Update
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -72,5 +77,4 @@ export default AssignmentCard;
 
 AssignmentCard.propTypes = {
   assignment: PropTypes.object,
-  handleDelete: PropTypes.func,
 };

@@ -1,27 +1,27 @@
-import useData from "../../Hooks/useData";
-import axios from "axios";
-import useAuth from "../../Hooks/useAuth";
-import Swal from "sweetalert2";
-import "react-datepicker/dist/react-datepicker.css";
-import DatePicker from "react-datepicker";
-import { useState } from "react";
 import { SlCalender } from "react-icons/sl";
+import useData from "../../Hooks/useData";
+import { useState } from "react";
+import DatePicker from "react-datepicker";
+import { useParams } from "react-router-dom";
+import useLoadData from "../../Hooks/useLoadData";
 
-const AddAssignment = () => {
+
+const UpdateAssignment = () => {
+
   const { dark } = useData();
 
-  const { user } = useAuth();
-  const userEmail = user.email;
+  const { id } = useParams();
+
+  const url = `http://localhost:5000/assignments/${id}`;
+
+  const assignment = useLoadData(url, false);
+  console.log(assignment);
 
   const [endDate, setEndDate] = useState(new Date());
 
   const date = endDate.toString().split(" ")
   const exactDate = date.slice(0, 5)
   const dueDate = exactDate.join(' ')
-
-  // const [assignmentData, setAssignmentData] = useState({})
-
-  // const url = "http://localhost:5000/assignments"
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,31 +41,9 @@ const AddAssignment = () => {
       dueDate,
       photoURL,
       description,
-      userEmail,
     };
-    // setAssignmentData(assignment);
-    axios.post("http://localhost:5000/assignments", assignment).then((res) => {
-      if (res.data.acknowledged) {
-        Swal.fire({
-          title: "Created.",
-          text: "Your assignment has been created.",
-          icon: "success",
-        });
-      }
-    });
+    console.log(assignment);
   };
-  // const {isPending, error, data} = useQuery({
-  //   queryKey: ['assignment-post'],
-  //   queryFn: () => {
-  //     axios.post(url, assignmentData)
-  //     .then(res => console.log(res.data))
-  //   }
-  // })
-
-  // useEffect(() => {
-  //   const response = usePostData(url, assignmentData)
-  //   console.log(response);
-  // } , [])
 
   return (
     <div
@@ -168,7 +146,6 @@ const AddAssignment = () => {
                   : "text-xs cursor-pointer h-full w-full placeholder:text-[#000000] text-[#000000] bg-transparent focus:outline-none focus:bg-transparent"
               }
               showIcon
-              required
               selected={endDate}
               onChange={(date) => setEndDate(date)}
               icon={<SlCalender className="text-sm -mt-[1px]"></SlCalender>}
@@ -220,4 +197,4 @@ const AddAssignment = () => {
   );
 };
 
-export default AddAssignment;
+export default UpdateAssignment;
