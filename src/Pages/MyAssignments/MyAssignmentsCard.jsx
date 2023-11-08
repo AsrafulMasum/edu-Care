@@ -9,7 +9,7 @@ const MyAssignmentsCard = ({ assignment }) => {
 
   return (
     <div>
-      <div className="w-full px-4 py-3 bg-white rounded-md shadow-md dark:bg-gray-800">
+      <div className="w-full h-full px-4 py-3 bg-white rounded-md shadow-md dark:bg-gray-800">
         <div className="flex items-center justify-between">
           <span className="text-sm font-light text-gray-400 flex items-center gap-2">
             <GiNotebook className="text-white text-lg "></GiNotebook>
@@ -30,10 +30,9 @@ const MyAssignmentsCard = ({ assignment }) => {
         <div>
           {assignment?.status === "completed" && (
             <div className="mt-2 space-y-2 text-gray-200">
-              <span>Obtain marks :</span>
+              <span>Obtain marks : {assignment?.givenMarks}</span>
               <p>
-                feedback : Lorem ipsum dolor sit, amet consectetur adipisicing
-                elit. Placeat, sed.
+                feedback : {assignment?.feedback}
               </p>
             </div>
           )}

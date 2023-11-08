@@ -1,12 +1,23 @@
 import PropTypes from "prop-types";
 import useLoadData from "../../Hooks/useLoadData";
 import { GiNotebook } from "react-icons/gi";
-import useData from "../../Hooks/useData";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useState } from "react";
+import useData from "../../Hooks/useData";
 
 const SubmittedAssignmentCard = ({ assignment }) => {
   const { dark } = useData();
+  let [isOpen, setIsOpen] = useState(false);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
 
   const assignmentId = assignment?.assignmentID;
   const assignmentURL = `http://localhost:5000/assignments/${assignmentId}`;
@@ -34,7 +45,7 @@ const SubmittedAssignmentCard = ({ assignment }) => {
         .then((res) => {
           if (res.data.modifiedCount > 0) {
             toast.success("Reviewed Assignment.");
-            // navigate("/submittedAssignments");
+            closeModal();
           }
         });
     }
@@ -75,64 +86,94 @@ const SubmittedAssignmentCard = ({ assignment }) => {
             </p>
           </div>
           <button
-            onClick={() => document.getElementById("giveMarkModal").showModal()}
+            onClick={openModal}
             className="px-2 py-1 text-xs font-semibold text-white hover:text-gray-900 transition-colors duration-300 transform rounded bg-active-color hover:bg-gray-200 focus:outline-none"
           >
             Give Mark
           </button>
+          <Transition appear show={isOpen} as={Fragment}>
+            <Dialog as="div" className="relative z-10" onClose={closeModal}>
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <div className="fixed inset-0 bg-black/25" />
+              </Transition.Child>
 
-          {/* modal */}
-          <dialog
-            id="giveMarkModal"
-            className="modal modal-bottom sm:modal-middle"
-          >
-            <div className="modal-box text-center">
-              <h3 className="font-bold text-lg">Give marks to your friend !</h3>
-              <p className="py-4">{assignment?.pdf}</p>
-              <p className="py-4">{assignment?.quickNote}</p>
-              <form onSubmit={handleSubmit}>
-                <div>
-                  <input
-                    type="number"
-                    name="marks"
-                    placeholder="Give Marks"
-                    required
-                    className={
-                      dark
-                        ? "block w-full text-xs placeholder:text-white text-white py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
-                        : "block w-full text-xs placeholder:text-[#000000] text-[#000000] py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
-                    }
-                  />
+              <div className="fixed inset-0 overflow-y-auto">
+                <div className="flex min-h-full items-center justify-center p-4 text-center">
+                  <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
+                  >
+                    <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-center align-middle shadow-xl transition-all">
+                      <Dialog.Title
+                        as="h3"
+                        className="text-lg font-medium leading-6 text-gray-900"
+                      >
+                        Give marks to your friend !
+                      </Dialog.Title>
+                      <a
+                        href={assignment?.pdf}
+                        className="py-4 text-primary-color"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {assignment?.pdf}
+                      </a>
+                      <p className="pb-4">
+                        Quick Note : {assignment?.quickNote}
+                      </p>
+                      <form onSubmit={handleSubmit}>
+                        <div>
+                          <input
+                            type="number"
+                            name="marks"
+                            placeholder="Give Marks"
+                            required
+                            className={
+                              dark
+                                ? "block w-full text-xs placeholder:text-white text-white py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                                : "block w-full text-xs placeholder:text-[#000000] text-[#000000] py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                            }
+                          />
+                        </div>
+                        <div>
+                          <textarea
+                            type="text"
+                            name="feedback"
+                            placeholder="Feedback"
+                            required
+                            className={
+                              dark
+                                ? "block w-full text-xs placeholder:text-white text-white py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                                : "block w-full text-xs placeholder:text-[#000000] text-[#000000] py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                            }
+                          />
+                        </div>
+                        <button
+                          type="submit"
+                          className="btn px-10 mt-10 normal-case bg-active-color border-none text-white font-bold tracking-wide"
+                        >
+                          Submit
+                        </button>
+                      </form>
+                    </Dialog.Panel>
+                  </Transition.Child>
                 </div>
-                <div>
-                  <textarea
-                    type="text"
-                    name="feedback"
-                    placeholder="Feedback"
-                    required
-                    className={
-                      dark
-                        ? "block w-full text-xs placeholder:text-white text-white py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
-                        : "block w-full text-xs placeholder:text-[#000000] text-[#000000] py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
-                    }
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="btn px-10 mt-10 normal-case bg-active-color border-none text-white font-bold tracking-wide"
-                >
-                  Submit
-                </button>
-              </form>
-              <div>
-                <form method="dialog">
-                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                    ✕
-                  </button>
-                </form>
               </div>
-            </div>
-          </dialog>
+            </Dialog>
+          </Transition>
         </div>
       </div>
     </div>

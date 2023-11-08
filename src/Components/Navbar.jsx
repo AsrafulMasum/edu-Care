@@ -89,42 +89,53 @@ const Navbar = () => {
             </div>
             <div>
               {user ? (
-                <div className="dropdown dropdown-end">
-                  <div className="flex justify-center items-center gap-2">
-                    <label
-                      tabIndex={0}
-                      className="btn btn-ghost btn-circle avatar"
-                    >
-                      <div className="w-10 rounded-full">
-                        <img
-                          title={user?.email}
-                          src={user?.photoURL ? user.photoURL : defaultUser}
-                          alt="User"
-                        />
-                      </div>
-                    </label>
-                  </div>
-                  <ul
-                    tabIndex={0}
-                    className="mt-2 z-50 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                <div className="flex items-center gap-2">
+                  <Link
+                    onClick={handleLogout}
+                    className={
+                      "hidden md:flex text-white btn normal-case btn-sm px-6 bg-active-color hover:bg-primary font-medium border-none"
+                    }
                   >
-                    <p className="p-3">
-                      {user?.displayName && user.displayName}
-                    </p>
+                    Logout
+                  </Link>
+                  <div className="dropdown dropdown-end">
+                    <div className="flex justify-center items-center gap-2">
+                      <label
+                        tabIndex={0}
+                        className="btn btn-ghost btn-circle avatar"
+                      >
+                        <div className="w-10 rounded-full">
+                          <img
+                            title={user?.displayName}
+                            src={user?.photoURL ? user.photoURL : defaultUser}
+                            alt="User"
+                          />
+                        </div>
+                      </label>
+                    </div>
+                    <ul
+                      tabIndex={0}
+                      className="mt-2 z-50 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                    >
+                      <p className="p-3">
+                        {user?.displayName && user.displayName}
+                      </p>
+                      <p className="p-3 text-xs">{user?.email && user.email}</p>
 
-                    <li>
-                      <button onClick={handleLogout}>Logout</button>
-                    </li>
-                  </ul>
+                      <li>
+                        <button className="mt-1" onClick={handleLogout}>
+                          Logout
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               ) : (
-                <div>
+                <div className="flex gap-2">
                   <Link
                     to={"/logIn"}
                     className={
-                      dark
-                        ? "btn normal-case btn-sm px-6 bg-primary hover:bg-primary text-white font-medium border-none mr-2"
-                        : "btn normal-case btn-sm px-6 bg-primary hover:bg-primary font-medium border-none mr-2"
+                      "text-white btn normal-case btn-sm px-6 bg-active-color hover:bg-primary font-medium border-none"
                     }
                   >
                     Log In
@@ -132,9 +143,7 @@ const Navbar = () => {
                   <Link
                     to={"/signUp"}
                     className={
-                      dark
-                        ? "btn normal-case btn-sm px-6 bg-primary hover:bg-primary text-white font-medium border-none"
-                        : "btn normal-case btn-sm px-6 bg-primary hover:bg-primary font-medium border-none"
+                      "hidden md:flex text-white btn normal-case btn-sm px-6 bg-active-color hover:bg-primary font-medium border-none"
                     }
                   >
                     Sign Up
