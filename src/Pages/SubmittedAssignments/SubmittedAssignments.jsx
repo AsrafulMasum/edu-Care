@@ -1,12 +1,39 @@
+import { toast } from "react-toastify";
 import useLoadData from "../../Hooks/useLoadData";
 import Container from "../../Layout/Container";
 import SubmittedAssignmentCard from "./SubmittedAssignmentCard";
+import axios from "axios";
 
 const SubmittedAssignments = () => {
   const submittedAssignmentsUrl = "/submittedAssignments";
-  const submittedAssignmentData = useLoadData(submittedAssignmentsUrl, false);
+  const submittedAssignmentData = useLoadData(submittedAssignmentsUrl, true);
 
   const showData = submittedAssignmentData?.filter(assignment => assignment?.status === "pending")
+
+  const handleSubmit = (closeModal, assignmentData, assignment, e) => {
+    e.preventDefault();
+    const form = e.target;
+    const givenMarks = form.marks.value;
+    const feedback = form.feedback.value;
+    const examinerData = { givenMarks, feedback, status: "completed" };
+
+    if (givenMarks > assignmentData?.marks) {
+      toast.error("Please provide a valid marks.");
+    } else {
+      axios
+        .put(
+          `http://localhost:5000/submittedAssignments/${assignment?._id}`,
+          examinerData,
+          { withCredentials: true }
+        )
+        .then((res) => {
+          if (res.data.modifiedCount > 0) {
+            toast.success("Reviewed Assignment.");
+            closeModal();
+          }
+        });
+    }
+  };
 
   return (
     <div>
@@ -24,6 +51,7 @@ const SubmittedAssignments = () => {
             <SubmittedAssignmentCard
               key={assignment?._id}
               assignment={assignment}
+              handleSubmit={handleSubmit}
             ></SubmittedAssignmentCard>
           ))}
         </div>

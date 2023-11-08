@@ -11,7 +11,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../Config/firebase/firebase.config";
-// import axios from "axios";
+import axios from "axios";
 
 export const AuthContext = createContext();
 
@@ -54,33 +54,33 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      // const userEmail = currentUser?.email || user?.email;
+      const userEmail = currentUser?.email || user?.email;
       setUser(currentUser);
       setLoading(false);
-      // const loggedInUser = { email: userEmail };
-      // if (currentUser) {
-      //   axios
-      //     .post("/jwt", loggedInUser, {
-      //       withCredentials: true,
-      //     })
-      //     .then((res) => {
-      //       console.log(res.data);
-      //     })
-      //     .catch((err) => {
-      //       console.log(err);
-      //     });
-      // } else {
-      //   axios
-      //     .post("/logout", loggedInUser, {
-      //       withCredentials: true,
-      //     })
-      //     .then((res) => {
-      //       console.log(res.data);
-      //     })
-      //     .catch((err) => {
-      //       console.log(err);
-      //     });
-      // }
+      const loggedInUser = { email: userEmail };
+      if (currentUser) {
+        axios
+          .post("http://localhost:5000/jwt", loggedInUser, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        axios
+          .post("http://localhost:5000/logout", loggedInUser, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     });
     return () => unSubscribe();
   }, [user]);

@@ -6,7 +6,7 @@ import MyAssignmentsCard from "./MyAssignmentsCard";
 const MyAssignments = () => {
   const { user } = useAuth();
   const url = `http://localhost:5000/submittedAssignments/${user?.email}`;
-  const myAssignments = useLoadData(url, false);
+  const myAssignments = useLoadData(url, true);
 
   return (
     <div>

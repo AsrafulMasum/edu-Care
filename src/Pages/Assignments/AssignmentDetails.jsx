@@ -18,8 +18,8 @@ const AssignmentDetails = () => {
   const assignmentUrl = `/assignments/${id}`;
   const submittedAssignmentUrl = "/submittedAssignments";
 
-  const assignment = useLoadData(assignmentUrl, false);
-  const submittedAssignment = useLoadData(submittedAssignmentUrl, false);
+  const assignment = useLoadData(assignmentUrl, true);
+  const submittedAssignment = useLoadData(submittedAssignmentUrl, true);
 
   const assignmentID = assignment?._id;
 
@@ -42,7 +42,7 @@ const AssignmentDetails = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete(`http://localhost:5000/assignments/${id}`)
+            .delete(`http://localhost:5000/assignments/${id}`, {withCredentials: true})
             .then((res) => {
               if (res.data.deletedCount > 0) {
                 Swal.fire({
@@ -87,7 +87,7 @@ const AssignmentDetails = () => {
       // });
     } else {
       axios
-        .post("http://localhost:5000/submittedAssignments", submittedData)
+        .post("http://localhost:5000/submittedAssignments", submittedData, {withCredentials: true})
         .then((res) => {
           if (res.data.insertedId) {
             toast.success("Your assignment has been submitted.")

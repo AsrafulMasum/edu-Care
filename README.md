@@ -4,7 +4,7 @@
 
 Click here for the live website link: [https://educare-fe496.web.app/](https://educare-fe496.web.app/)
 
-# 5 main features of my project are :
+# 8 main features of my project are :
   * Users can signUp & login to the website and logout from website.
 
   * After the navbar there is a dark mode toggle button. On clicking on the button user can toggle the theme to light to dark , or dark to light. 

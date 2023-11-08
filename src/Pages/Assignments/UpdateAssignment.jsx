@@ -15,7 +15,7 @@ const UpdateAssignment = () => {
   const [dueDate, setDueDate] = useState()
   const url = `/assignments/${id}`;
 
-  const assignment = useLoadData(url, false);
+  const assignment = useLoadData(url, true);
 
   useEffect(() => {
     const selectOption = document.getElementById("difficultyLevel");
@@ -68,7 +68,7 @@ const UpdateAssignment = () => {
       confirmButtonText: "Yes, update it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.put(`http://localhost:5000/assignments/${id}`, updatedAssignment).then((res) => {
+        axios.put(`http://localhost:5000/assignments/${id}`, updatedAssignment, {withCredentials: true}).then((res) => {
           if (res.data.modifiedCount > 0) {
             Swal.fire({
               title: "Updated!",

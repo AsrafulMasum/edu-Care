@@ -5,7 +5,7 @@ import { GiNotebook } from "react-icons/gi";
 const MyAssignmentsCard = ({ assignment }) => {
   const assignmentId = assignment?.assignmentID;
   const assignmentURL = `http://localhost:5000/assignments/${assignmentId}`;
-  const assignmentData = useLoadData(assignmentURL, false);
+  const assignmentData = useLoadData(assignmentURL, true);
 
   return (
     <div>

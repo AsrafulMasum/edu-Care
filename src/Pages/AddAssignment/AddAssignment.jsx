@@ -45,7 +45,7 @@ const AddAssignment = () => {
       endDate,
     };
     // setAssignmentData(assignment);
-    axios.post("http://localhost:5000/assignments", assignment).then((res) => {
+    axios.post("http://localhost:5000/assignments", assignment, {withCredentials: true}).then((res) => {
       if (res.data.insertedId) {
         Swal.fire({
           title: "Created.",

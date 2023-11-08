@@ -4,10 +4,7 @@ import AssignmentCard from "./AssignmentCard";
 import { useEffect, useState } from "react";
 
 const Assignments = () => {
-  const allAssignmentData = useLoadData(
-    "/assignments",
-    false
-  );
+  const allAssignmentData = useLoadData("/assignments", false);
 
   const [showAssignment, setShowAssignment] = useState([]);
 
@@ -24,7 +21,7 @@ const Assignments = () => {
         (assignment) => assignment?.difficulty === "Medium"
       );
       setShowAssignment(medium);
-    } else if(filter === 'Hard'){
+    } else if (filter === "Hard") {
       const hard = allAssignmentData?.filter(
         (assignment) => assignment?.difficulty === "Hard"
       );

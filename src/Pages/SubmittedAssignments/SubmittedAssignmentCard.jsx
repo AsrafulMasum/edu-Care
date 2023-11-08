@@ -1,28 +1,26 @@
 import PropTypes from "prop-types";
 import useLoadData from "../../Hooks/useLoadData";
 import { GiNotebook } from "react-icons/gi";
-import { toast } from "react-toastify";
-import axios from "axios";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import useData from "../../Hooks/useData";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { pdfjs } from "react-pdf";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const SubmittedAssignmentCard = ({ assignment }) => {
   const { dark } = useData();
   const { user } = useAuth();
 
-    const assignmentId = assignment?.assignmentID;
+  const assignmentId = assignment?.assignmentID;
   const assignmentURL = `/assignments/${assignmentId}`;
-  const assignmentData = useLoadData(assignmentURL, false);
-  console.log(assignmentData);
+  const assignmentData = useLoadData(assignmentURL, true);
 
   const submittedBy = assignment?.submittedEmail;
   const submittedUserURL = `/users/${submittedBy}`;
-  const submittedUser = useLoadData(submittedUserURL, false);
-  console.log(submittedUser);
+  const submittedUser = useLoadData(submittedUserURL, true);
 
   pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     "pdfjs-dist/build/pdf.worker.min.js",
@@ -60,22 +58,21 @@ const SubmittedAssignmentCard = ({ assignment }) => {
     setIsOpenPDF(false);
   };
 
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
     const givenMarks = form.marks.value;
     const feedback = form.feedback.value;
     const examinerData = { givenMarks, feedback, status: "completed" };
-    console.log(assignment);
+
     if (givenMarks > assignmentData?.marks) {
       toast.error("Please provide a valid marks.");
     } else {
       axios
         .put(
           `http://localhost:5000/submittedAssignments/${assignment?._id}`,
-          examinerData
+          examinerData,
+          { withCredentials: true }
         )
         .then((res) => {
           if (res.data.modifiedCount > 0) {
@@ -172,9 +169,19 @@ const SubmittedAssignmentCard = ({ assignment }) => {
                         Quick Note : {assignment?.quickNote}
                       </p>
 
-                      <button onClick={closeModal} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                      <button
+                        onClick={closeModal}
+                        className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                      >
+                        ✕
+                      </button>
 
-                      <button onClick={openPDFModal} className="btn text-white bg-primary-color normal-case btn-sm">Show PDF</button>
+                      <button
+                        onClick={openPDFModal}
+                        className="btn text-white bg-primary-color normal-case btn-sm"
+                      >
+                        Show PDF
+                      </button>
                       {/* pdf modal */}
                       <Dialog
                         as="div"
@@ -268,4 +275,5 @@ export default SubmittedAssignmentCard;
 
 SubmittedAssignmentCard.propTypes = {
   assignment: PropTypes.object,
+  handleSubmit: PropTypes.func
 };
