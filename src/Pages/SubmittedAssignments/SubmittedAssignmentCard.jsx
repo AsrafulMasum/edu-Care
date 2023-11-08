@@ -70,7 +70,7 @@ const SubmittedAssignmentCard = ({ assignment }) => {
     } else {
       axios
         .put(
-          `http://localhost:5000/submittedAssignments/${assignment?._id}`,
+          `https://assignment11-server-xi.vercel.app/submittedAssignments/${assignment?._id}`,
           examinerData,
           { withCredentials: true }
         )

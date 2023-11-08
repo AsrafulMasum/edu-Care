@@ -68,7 +68,7 @@ const UpdateAssignment = () => {
       confirmButtonText: "Yes, update it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.put(`http://localhost:5000/assignments/${id}`, updatedAssignment, {withCredentials: true}).then((res) => {
+        axios.put(`https://assignment11-server-xi.vercel.app/assignments/${id}`, updatedAssignment, {withCredentials: true}).then((res) => {
           if (res.data.modifiedCount > 0) {
             Swal.fire({
               title: "Updated!",

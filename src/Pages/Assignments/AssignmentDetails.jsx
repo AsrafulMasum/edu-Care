@@ -42,7 +42,7 @@ const AssignmentDetails = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete(`http://localhost:5000/assignments/${id}`, {withCredentials: true})
+            .delete(`https://assignment11-server-xi.vercel.app/assignments/${id}`, {withCredentials: true})
             .then((res) => {
               if (res.data.deletedCount > 0) {
                 Swal.fire({
@@ -87,7 +87,7 @@ const AssignmentDetails = () => {
       // });
     } else {
       axios
-        .post("http://localhost:5000/submittedAssignments", submittedData, {withCredentials: true})
+        .post("https://assignment11-server-xi.vercel.app/submittedAssignments", submittedData, {withCredentials: true})
         .then((res) => {
           if (res.data.insertedId) {
             toast.success("Your assignment has been submitted.")

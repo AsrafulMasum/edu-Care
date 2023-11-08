@@ -1,3 +1,4 @@
+import axios from "axios";
 import useLoadData from "../../Hooks/useLoadData";
 import Container from "../../Layout/Container";
 import AssignmentCard from "./AssignmentCard";
@@ -7,6 +8,22 @@ const Assignments = () => {
   const allAssignmentData = useLoadData("/assignments", false);
 
   const [showAssignment, setShowAssignment] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0)
+
+  console.log(currentPage);
+
+  const count = allAssignmentData?.length
+  const itemsPerPage = 3
+  const numberOfPages = Math.ceil(count / itemsPerPage)
+
+  const pages = [...Array(numberOfPages).keys()]
+
+  useEffect(()=>{
+    axios.get(`https://assignment11-server-xi.vercel.app/assignments?page=${currentPage}&size=${itemsPerPage}`)
+    .then(res => {
+      console.log(res.data);
+    })
+  },[])
 
   const handleFilter = (filter) => {
     if (filter === "All") {
@@ -80,6 +97,11 @@ const Assignments = () => {
               ></AssignmentCard>
             ))}
           </div>
+        </div>
+        <div className="text-center mb-10">
+          {
+            pages?.map((page, idx) => <button onClick={() => setCurrentPage(page)} className="btn bg-active-color mr-1" key={idx}>{page}</button>)
+          }
         </div>
       </Container>
     </div>
