@@ -2,12 +2,26 @@ import PropTypes from "prop-types";
 import { AiTwotoneHourglass } from "react-icons/ai";
 import { GiNotebook } from "react-icons/gi";
 import { SlCalender } from "react-icons/sl";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const AssignmentCard = ({ assignment }) => {
-
   const { user } = useAuth();
+
+  const navigate = useNavigate();
+
+  const handleUpdate = (id) => {
+    if (assignment?.userEmail === user?.email) {
+      navigate(`/assignmentDetails/update/${id}`);
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You can't update this assignment!",
+      });
+    }
+  };
 
   return (
     <div>
@@ -58,14 +72,14 @@ const AssignmentCard = ({ assignment }) => {
             >
               Details
             </Link>
-            {user?.email === assignment?.userEmail && (
-              <Link
-                to={`/assignmentDetails/update/${assignment?._id}`}
-                className="btn px-10 normal-case bg-transparent text-white font-bold tracking-wide"
-              >
-                Update
-              </Link>
-            )}
+
+            <Link
+              onClick={() => handleUpdate(assignment._id)}
+              // to={`/assignmentDetails/update/${assignment?._id}`}
+              className="btn px-10 normal-case bg-transparent text-white font-bold tracking-wide"
+            >
+              Update
+            </Link>
           </div>
         </div>
       </div>

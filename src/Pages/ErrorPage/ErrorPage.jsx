@@ -12,7 +12,7 @@ const ErrorPage = () => {
         </h2>
         <p className="text-2xl font-medium">{error.data}</p>
         <NavLink to={"/"}>
-          <button className="bg-[#9AB551] text-white font-semibold px-6 py-2 rounded">
+          <button className="bg-active-color text-white font-semibold px-6 py-2 rounded">
             Go Home
           </button>
         </NavLink>

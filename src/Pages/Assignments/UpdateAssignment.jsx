@@ -16,7 +16,6 @@ const UpdateAssignment = () => {
   const url = `http://localhost:5000/assignments/${id}`;
 
   const assignment = useLoadData(url, false);
-  console.log(assignment);
 
   useEffect(() => {
     const selectOption = document.getElementById("difficultyLevel");
