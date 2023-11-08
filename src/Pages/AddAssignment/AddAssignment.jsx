@@ -21,7 +21,7 @@ const AddAssignment = () => {
 
   // const [assignmentData, setAssignmentData] = useState({})
 
-  // const url = "http://localhost:5000/assignments"
+  // const url = "/assignments"
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,7 +46,6 @@ const AddAssignment = () => {
     };
     // setAssignmentData(assignment);
     axios.post("http://localhost:5000/assignments", assignment).then((res) => {
-      console.log(res.data);
       if (res.data.insertedId) {
         Swal.fire({
           title: "Created.",

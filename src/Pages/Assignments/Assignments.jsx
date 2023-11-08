@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const Assignments = () => {
   const allAssignmentData = useLoadData(
-    "http://localhost:5000/assignments",
+    "/assignments",
     false
   );
 

@@ -13,7 +13,7 @@ const UpdateAssignment = () => {
   const navigate = useNavigate();
   const [endDate, setEndDate] = useState(new Date());
   const [dueDate, setDueDate] = useState()
-  const url = `http://localhost:5000/assignments/${id}`;
+  const url = `/assignments/${id}`;
 
   const assignment = useLoadData(url, false);
 

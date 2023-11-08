@@ -16,7 +16,17 @@ const Drawer = () => {
       </li>
       {user && (
         <li>
-          <Link to={"/myAssignment"}>My Assignment</Link>
+          <Link to={"/myAssignments"}>My Assignments</Link>
+        </li>
+      )}
+      {user && (
+        <li>
+          <Link to={"/addAssignment"}>Add Assignment</Link>
+        </li>
+      )}
+      {user && (
+        <li>
+          <Link to={"/submittedAssignments"}>Submitted Assignment</Link>
         </li>
       )}
     </>

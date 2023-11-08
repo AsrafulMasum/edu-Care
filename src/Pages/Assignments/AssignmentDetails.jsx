@@ -15,8 +15,8 @@ const AssignmentDetails = () => {
 
   const userEmail = user?.email;
 
-  const assignmentUrl = `http://localhost:5000/assignments/${id}`;
-  const submittedAssignmentUrl = "http://localhost:5000/submittedAssignments";
+  const assignmentUrl = `/assignments/${id}`;
+  const submittedAssignmentUrl = "/submittedAssignments";
 
   const assignment = useLoadData(assignmentUrl, false);
   const submittedAssignment = useLoadData(submittedAssignmentUrl, false);

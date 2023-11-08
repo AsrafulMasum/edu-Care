@@ -3,7 +3,7 @@ import Container from "../../Layout/Container";
 import SubmittedAssignmentCard from "./SubmittedAssignmentCard";
 
 const SubmittedAssignments = () => {
-  const submittedAssignmentsUrl = "http://localhost:5000/submittedAssignments";
+  const submittedAssignmentsUrl = "/submittedAssignments";
   const submittedAssignmentData = useLoadData(submittedAssignmentsUrl, false);
 
   const showData = submittedAssignmentData?.filter(assignment => assignment?.status === "pending")

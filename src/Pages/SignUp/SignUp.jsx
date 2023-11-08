@@ -11,7 +11,7 @@ const SignUp = () => {
 
   const { signUpWithEmail, updateUser, logOut } = useAuth();
 
-  const {dark} = useData()
+  const { dark } = useData();
 
   const navigate = useNavigate();
 
@@ -32,13 +32,14 @@ const SignUp = () => {
     const passwordRegex =
       /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/;
 
-    const toastId = toast.loading('Signing Up...')
+    const toastId = toast.loading("Signing Up...");
 
     if (password !== confirmPassword) {
-      toast.error("Please confirm your password." ,{id: toastId});
+      toast.error("Please confirm your password.", { id: toastId });
     } else if (!passwordRegex.test(password)) {
       toast.error(
-        "Password must have 6 characters and one letter and one special character.", {id: toastId}
+        "Password must have 6 characters and one letter and one special character.",
+        { id: toastId }
       );
     } else {
       signUpWithEmail(email, password)
@@ -46,16 +47,6 @@ const SignUp = () => {
           // emailVerification().then(() => {
           //   toast.info("Please verify your email.");
           // });
-          toast.success("Sign Up Successful.", {id: toastId});
-          updateUser(name, photoURL)
-            .then(() => {
-              toast.success("Profile Updated.", {id: toastId});
-            })
-            .catch((err) => {
-              toast.error(err.message, {id: toastId});
-            });
-          logOut().then().catch();
-          navigate("/login");
 
           fetch("http://localhost:5000/users", {
             method: "POST",
@@ -66,11 +57,22 @@ const SignUp = () => {
           })
             .then((res) => res.json())
             .then((data) => {
-              console.log(data);
+              if (data?.insertedId) {
+                toast.success("Sign Up Successful.", { id: toastId });
+                updateUser(name, photoURL)
+                  .then(() => {
+                    toast.success("Profile Updated.", { id: toastId });
+                  })
+                  .catch((err) => {
+                    toast.error(err.message, { id: toastId });
+                  });
+                logOut().then().catch();
+                navigate("/login");
+              }
             });
         })
         .catch((err) => {
-          toast.error(err.message, {id: toastId});
+          toast.error(err.message, { id: toastId });
         });
     }
   };

@@ -10,7 +10,8 @@ import PrivateRoutes from "./PrivateRoutes";
 import AssignmentDetails from "../Pages/Assignments/AssignmentDetails";
 import UpdateAssignment from "../Pages/Assignments/UpdateAssignment";
 import SubmittedAssignments from "../Pages/SubmittedAssignments/SubmittedAssignments";
-import MyAssignments from "../Pages/MyAssignments/MyAssignments";
+import MyAssignments from "../Pages/MyAssignments/MyAssignments"
+
 
 const Routes = createBrowserRouter([
   {

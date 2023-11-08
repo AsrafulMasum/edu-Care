@@ -6,9 +6,32 @@ import axios from "axios";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import useData from "../../Hooks/useData";
+import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
+import { pdfjs } from "react-pdf";
 
 const SubmittedAssignmentCard = ({ assignment }) => {
   const { dark } = useData();
+  const { user } = useAuth();
+
+    const assignmentId = assignment?.assignmentID;
+  const assignmentURL = `/assignments/${assignmentId}`;
+  const assignmentData = useLoadData(assignmentURL, false);
+  console.log(assignmentData);
+
+  const submittedBy = assignment?.submittedEmail;
+  const submittedUserURL = `/users/${submittedBy}`;
+  const submittedUser = useLoadData(submittedUserURL, false);
+  console.log(submittedUser);
+
+  pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+    "pdfjs-dist/build/pdf.worker.min.js",
+    import.meta.url
+  ).toString();
+
+  // Your PDF file URL
+  const pdfUrl = `${assignment?.pdf}`;
+
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -16,16 +39,28 @@ const SubmittedAssignmentCard = ({ assignment }) => {
   }
 
   function openModal() {
-    setIsOpen(true);
+    if (assignment?.submittedEmail === user?.email) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You can't give marks to this assignment !",
+      });
+    } else {
+      setIsOpen(true);
+    }
   }
 
-  const assignmentId = assignment?.assignmentID;
-  const assignmentURL = `http://localhost:5000/assignments/${assignmentId}`;
-  const assignmentData = useLoadData(assignmentURL, false);
+  const [isOpenPDF, setIsOpenPDF] = useState(false);
 
-  const submittedBy = assignment?.submittedEmail;
-  const submittedUserURL = `http://localhost:5000/users/${submittedBy}`;
-  const submittedUser = useLoadData(submittedUserURL, false);
+  const openPDFModal = () => {
+    setIsOpenPDF(true);
+  };
+
+  const closePDFModal = () => {
+    setIsOpenPDF(false);
+  };
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -91,6 +126,7 @@ const SubmittedAssignmentCard = ({ assignment }) => {
           >
             Give Mark
           </button>
+          {/* modal for giving marks */}
           <Transition appear show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={closeModal}>
               <Transition.Child
@@ -131,9 +167,57 @@ const SubmittedAssignmentCard = ({ assignment }) => {
                       >
                         {assignment?.pdf}
                       </a>
+
                       <p className="pb-4">
                         Quick Note : {assignment?.quickNote}
                       </p>
+
+                      <button onClick={closeModal} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+
+                      <button onClick={openPDFModal} className="btn text-white bg-primary-color normal-case btn-sm">Show PDF</button>
+                      {/* pdf modal */}
+                      <Dialog
+                        as="div"
+                        className="fixed inset-0 z-50 overflow-y-auto"
+                        open={isOpenPDF}
+                        onClose={closeModal}
+                      >
+                        <div className="min-h-screen px-4 text-center">
+                          <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+                          <span
+                            className="inline-block h-screen align-middle"
+                            aria-hidden="true"
+                          >
+                            &#8203;
+                          </span>
+                          <div className="inline-block align-middle p-6 my-8 text-left bg-white shadow-xl transform transition-all sm:my-12 sm:align-middle sm:max-w-3xl sm:w-full sm:p-6">
+                            <Dialog.Title
+                              as="h3"
+                              className="text-lg font-medium leading-6 text-gray-900"
+                            >
+                              PDF Viewer Modal
+                            </Dialog.Title>
+                            <div className="mt-2">
+                              <iframe
+                                title="PDF Viewer"
+                                src={pdfUrl}
+                                width="100%"
+                                height="500px"
+                              />
+                            </div>
+                            <div className="mt-4">
+                              <button
+                                onClick={closePDFModal}
+                                type="button"
+                                className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-500 border border-transparent rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                              >
+                                Close Modal
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </Dialog>
+
                       <form onSubmit={handleSubmit}>
                         <div>
                           <input
