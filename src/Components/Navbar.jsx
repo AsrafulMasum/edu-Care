@@ -42,6 +42,11 @@ const Navbar = () => {
           <NavLink to={"/addAssignment"}>Add Assignment</NavLink>
         </li>
       )}
+      {user && (
+        <li>
+          <NavLink to={"/submittedAssignments"}>Submitted Assignment</NavLink>
+        </li>
+      )}
     </>
   );
   return (
