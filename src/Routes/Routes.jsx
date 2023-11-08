@@ -26,6 +26,7 @@ const Routes = createBrowserRouter([
       {
         path: "assignments",
         element: <Assignments></Assignments>,
+        loader: () => fetch("https://assignment11-server-xi.vercel.app/assignments")
       },
       {
         path: "addAssignment",

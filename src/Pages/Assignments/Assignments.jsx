@@ -1,16 +1,15 @@
 import axios from "axios";
-import useLoadData from "../../Hooks/useLoadData";
+// import useLoadData from "../../Hooks/useLoadData";
 import Container from "../../Layout/Container";
 import AssignmentCard from "./AssignmentCard";
 import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
 
 const Assignments = () => {
-  const allAssignmentData = useLoadData("/assignments", false);
+  const allAssignmentData = useLoaderData()
 
   const [showAssignment, setShowAssignment] = useState([]);
   const [currentPage, setCurrentPage] = useState(0)
-
-  console.log(currentPage);
 
   const count = allAssignmentData?.length
   const itemsPerPage = 3
@@ -23,7 +22,7 @@ const Assignments = () => {
     .then(res => {
       console.log(res.data);
     })
-  },[])
+  },[currentPage])
 
   const handleFilter = (filter) => {
     if (filter === "All") {
