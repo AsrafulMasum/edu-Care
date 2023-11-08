@@ -1,9 +1,12 @@
 import PropTypes from "prop-types";
 import useLoadData from "../../Hooks/useLoadData";
 import { GiNotebook } from "react-icons/gi";
+import useData from "../../Hooks/useData";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const SubmittedAssignmentCard = ({ assignment }) => {
-  console.log(assignment);
+  const { dark } = useData();
 
   const assignmentId = assignment?.assignmentID;
   const assignmentURL = `http://localhost:5000/assignments/${assignmentId}`;
@@ -12,7 +15,30 @@ const SubmittedAssignmentCard = ({ assignment }) => {
   const submittedBy = assignment?.submittedEmail;
   const submittedUserURL = `http://localhost:5000/users/${submittedBy}`;
   const submittedUser = useLoadData(submittedUserURL, false);
-  console.log(submittedUser);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const givenMarks = form.marks.value;
+    const feedback = form.feedback.value;
+    const examinerData = { givenMarks, feedback, status: "completed" };
+    console.log(assignment);
+    if (givenMarks > assignmentData?.marks) {
+      toast.error("Please provide a valid marks.");
+    } else {
+      axios
+        .put(
+          `http://localhost:5000/submittedAssignments/${assignment?._id}`,
+          examinerData
+        )
+        .then((res) => {
+          if (res.data.modifiedCount > 0) {
+            toast.success("Reviewed Assignment.");
+            // navigate("/submittedAssignments");
+          }
+        });
+    }
+  };
 
   return (
     <div>
@@ -48,9 +74,65 @@ const SubmittedAssignmentCard = ({ assignment }) => {
               {submittedUser?.name}
             </p>
           </div>
-          <button className="px-2 py-1 text-xs font-semibold text-white hover:text-gray-900 transition-colors duration-300 transform rounded bg-active-color hover:bg-gray-200 focus:outline-none">
+          <button
+            onClick={() => document.getElementById("giveMarkModal").showModal()}
+            className="px-2 py-1 text-xs font-semibold text-white hover:text-gray-900 transition-colors duration-300 transform rounded bg-active-color hover:bg-gray-200 focus:outline-none"
+          >
             Give Mark
           </button>
+
+          {/* modal */}
+          <dialog
+            id="giveMarkModal"
+            className="modal modal-bottom sm:modal-middle"
+          >
+            <div className="modal-box text-center">
+              <h3 className="font-bold text-lg">Give marks to your friend !</h3>
+              <p className="py-4">{assignment?.pdf}</p>
+              <p className="py-4">{assignment?.quickNote}</p>
+              <form onSubmit={handleSubmit}>
+                <div>
+                  <input
+                    type="number"
+                    name="marks"
+                    placeholder="Give Marks"
+                    required
+                    className={
+                      dark
+                        ? "block w-full text-xs placeholder:text-white text-white py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                        : "block w-full text-xs placeholder:text-[#000000] text-[#000000] py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                    }
+                  />
+                </div>
+                <div>
+                  <textarea
+                    type="text"
+                    name="feedback"
+                    placeholder="Feedback"
+                    required
+                    className={
+                      dark
+                        ? "block w-full text-xs placeholder:text-white text-white py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                        : "block w-full text-xs placeholder:text-[#000000] text-[#000000] py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                    }
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="btn px-10 mt-10 normal-case bg-active-color border-none text-white font-bold tracking-wide"
+                >
+                  Submit
+                </button>
+              </form>
+              <div>
+                <form method="dialog">
+                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                    ✕
+                  </button>
+                </form>
+              </div>
+            </div>
+          </dialog>
         </div>
       </div>
     </div>

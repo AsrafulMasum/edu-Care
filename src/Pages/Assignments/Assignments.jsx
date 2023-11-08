@@ -42,7 +42,7 @@ const Assignments = () => {
     <div>
       <Container>
         <div className="my-10">
-          <div className="text-center mb-10 space-y-4 relative">
+          <div className="md:text-center mb-10 space-y-4 relative">
             <p className="tracking-widest font-bold text-primary-color">
               All The Assignments Are Here
             </p>
@@ -52,7 +52,7 @@ const Assignments = () => {
             <div className="dropdown dropdown-hover dropdown-bottom dropdown-end absolute top-0 right-0">
               <label
                 tabIndex={0}
-                className="btn hover:bg-active-color hover:text-white px-10 normal-case m-1"
+                className="btn hover:bg-active-color hover:text-white md:px-10 normal-case m-1"
               >
                 Difficulty
               </label>

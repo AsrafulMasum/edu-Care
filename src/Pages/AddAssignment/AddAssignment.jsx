@@ -71,7 +71,7 @@ const AddAssignment = () => {
 
   return (
     <div
-      className="-mt-[68px] min-h-screen pt-36"
+      className="-mt-[68px] min-h-screen pt-36 px-4"
       style={{
         background: ` url("https://themeforest.wprealizer.com/html-educoda-preview/educoda/assets/images/shape/hero-shape-3.png")`,
         backgroundRepeat: "no-repeat",
@@ -166,8 +166,8 @@ const AddAssignment = () => {
             <DatePicker
               className={
                 dark
-                  ? "text-xs cursor-pointer h-full w-full placeholder:text-white text-white bg-transparent focus:outline-none focus:bg-transparent"
-                  : "text-xs cursor-pointer h-full w-full placeholder:text-[#000000] text-[#000000] bg-transparent focus:outline-none focus:bg-transparent"
+                  ? "text-xs cursor-pointer h-full w-96 md:w-[42rem] lg:w-[51rem] placeholder:text-white text-white bg-transparent focus:outline-none focus:bg-transparent"
+                  : "text-xs cursor-pointer h-full w-96 md:w-[42rem] lg:w-[51rem] placeholder:text-[#000000] text-[#000000] bg-transparent focus:outline-none focus:bg-transparent"
               }
               showIcon
               required
@@ -213,7 +213,7 @@ const AddAssignment = () => {
                   : "w-full px-6 py-2.5 text-sm font-medium tracking-wide rounded-sm bg-active-color"
               }
             >
-              Add This Place
+              Add Assignment
             </button>
           </div>
         </form>

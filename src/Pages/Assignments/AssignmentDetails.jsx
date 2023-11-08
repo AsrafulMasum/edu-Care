@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { GiNotebook } from "react-icons/gi";
 import useData from "../../Hooks/useData";
+import { toast } from "react-toastify";
 
 const AssignmentDetails = () => {
   const { id } = useParams();
@@ -22,7 +23,9 @@ const AssignmentDetails = () => {
 
   const assignmentID = assignment?._id;
 
-  const exists = submittedAssignment?.find(assignment => assignment?.assignmentID === assignmentID)
+  const exists = submittedAssignment?.find(
+    (assignment) => assignment?.assignmentID === assignmentID
+  );
 
   const navigate = useNavigate();
 
@@ -76,21 +79,23 @@ const AssignmentDetails = () => {
     };
 
     if (exists) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "You already submitted this assignment !",
-      });
+      toast.error("You already submitted this assignment !")
+      // Swal.fire({
+      //   icon: "error",
+      //   title: "Oops...",
+      //   text: "You already submitted this assignment !",
+      // });
     } else {
       axios
         .post("http://localhost:5000/submittedAssignments", submittedData)
         .then((res) => {
           if (res.data.insertedId) {
-            Swal.fire({
-              title: "Submitted.",
-              text: "Your assignment has been submitted.",
-              icon: "success",
-            });
+            toast.success("Your assignment has been submitted.")
+            // Swal.fire({
+            //   title: "Submitted.",
+            //   text: "Your assignment has been submitted.",
+            //   icon: "success",
+            // });
           }
         });
     }
@@ -131,99 +136,99 @@ const AssignmentDetails = () => {
               </p>
             </div>
 
-            <div className="mt-4">
-              <div className="flex flex-col gap-4">
-                <span className="mx-1 text-xs text-gray-600 dark:text-gray-300">
-                  {assignment?.dueDate}
-                </span>
-                <div className="flex flex-col gap-4 md:flex-row justify-between md:items-center">
-                  <div className="flex items-center">
-                    <img
-                      className="object-cover h-10 w-10 rounded-full"
-                      src={user?.photoURL}
-                      alt="Avatar"
-                    />
-                    <p
-                      className="mx-2 font-semibold text-gray-700 dark:text-gray-200"
-                      tabIndex="0"
-                      role="link"
-                    >
-                      {user?.displayName}
-                    </p>
-                  </div>
-                  <div className="flex gap-4">
+            <div className="flex flex-col gap-4 mt-4">
+              <span className="mx-1 text-xs text-gray-600 dark:text-gray-300">
+                {assignment?.dueDate}
+              </span>
+              <div className="flex flex-col gap-4 md:flex-row justify-between md:items-center">
+                <div className="flex items-center">
+                  <img
+                    className="object-cover h-10 w-10 rounded-full"
+                    src={user?.photoURL}
+                    alt="Avatar"
+                  />
+                  <p
+                    className="mx-2 font-semibold text-gray-700 dark:text-gray-200"
+                    tabIndex="0"
+                    role="link"
+                  >
+                    {user?.displayName}
+                  </p>
+                </div>
+                <div className="flex gap-4">
+                  <Link
+                    onClick={() => handleDelete(assignment?._id)}
+                    className="btn px-10 normal-case bg-transparent text-white font-bold tracking-wide"
+                  >
+                    Delete
+                  </Link>
+
+                  <div>
                     <Link
-                      onClick={() => handleDelete(assignment?._id)}
-                      className="btn px-10 normal-case bg-transparent text-white font-bold tracking-wide"
+                      className="btn px-10 normal-case bg-active-color border-none text-white font-bold tracking-wide"
+                      onClick={() =>
+                        document.getElementById("submitModal").showModal()
+                      }
                     >
-                      Delete
+                      Take Assignment
                     </Link>
 
-                    <div>
-                      <Link
-                        className="btn px-10 normal-case bg-active-color border-none text-white font-bold tracking-wide"
-                        onClick={() =>
-                          document.getElementById("my_modal_5").showModal()
-                        }
-                      >
-                        Take Assignment
-                      </Link>
-                      <dialog
-                        id="my_modal_5"
-                        className="modal modal-bottom sm:modal-middle"
-                      >
-                        <div className="modal-box text-center">
-                          <h3 className="font-bold text-lg">
-                            Submit Your Assignment !
-                          </h3>
-                          <p className="py-4">
-                            Submit your assignment PDF link here
-                          </p>
-                          <form onSubmit={handleSubmitAssignment}>
-                            <div>
-                              <input
-                                type="url"
-                                name="pdf"
-                                placeholder="PDF Link"
-                                required
-                                className={
-                                  dark
-                                    ? "block w-full text-xs placeholder:text-white text-white py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
-                                    : "block w-full text-xs placeholder:text-[#000000] text-[#000000] py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
-                                }
-                              />
-                            </div>
-                            <div>
-                              <textarea
-                                type="text"
-                                name="quickNote"
-                                placeholder="Quick Note"
-                                required
-                                className={
-                                  dark
-                                    ? "block w-full text-xs placeholder:text-white text-white py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
-                                    : "block w-full text-xs placeholder:text-[#000000] text-[#000000] py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
-                                }
-                              />
-                            </div>
-                            {/* if there is a button in form, it will close the modal */}
-                            <button
-                              type="submit"
-                              className="btn px-10 mt-10 normal-case bg-active-color border-none text-white font-bold tracking-wide"
-                            >
-                              Submit
+                    {/* modal */}
+                    <dialog
+                      id="submitModal"
+                      className="modal modal-bottom sm:modal-middle"
+                    >
+                      <div className="modal-box text-center">
+                        <h3 className="font-bold text-lg">
+                          Submit Your Assignment !
+                        </h3>
+                        <p className="py-4">
+                          Submit your assignment PDF link here
+                        </p>
+                        <form onSubmit={handleSubmitAssignment}>
+                          <div>
+                            <input
+                              type="url"
+                              name="pdf"
+                              placeholder="PDF Link"
+                              required
+                              className={
+                                dark
+                                  ? "block w-full text-xs placeholder:text-white text-white py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                                  : "block w-full text-xs placeholder:text-[#000000] text-[#000000] py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                              }
+                            />
+                          </div>
+                          <div>
+                            <textarea
+                              type="text"
+                              name="quickNote"
+                              placeholder="Quick Note"
+                              required
+                              className={
+                                dark
+                                  ? "block w-full text-xs placeholder:text-white text-white py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                                  : "block w-full text-xs placeholder:text-[#000000] text-[#000000] py-2 pl-1 mt-2 bg-transparent border-b border-[#ABABAB] focus:outline-none focus:bg-transparent"
+                              }
+                            />
+                          </div>
+                          {/* if there is a button in form, it will close the modal */}
+                          <button
+                            type="submit"
+                            className="btn px-10 mt-10 normal-case bg-active-color border-none text-white font-bold tracking-wide"
+                          >
+                            Submit
+                          </button>
+                        </form>
+                        <div>
+                          <form method="dialog">
+                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                              ✕
                             </button>
                           </form>
-                          <div>
-                            <form method="dialog">
-                              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                                ✕
-                              </button>
-                            </form>
-                          </div>
                         </div>
-                      </dialog>
-                    </div>
+                      </div>
+                    </dialog>
                   </div>
                 </div>
               </div>
