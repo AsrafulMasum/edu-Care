@@ -5,7 +5,7 @@ import Loading from "../Loading/Loading";
 
 const MyAssignmentsCard = ({ assignment }) => {
   const assignmentId = assignment?.assignmentID;
-  const assignmentURL = `http://localhost:5000/assignments/${assignmentId}`;
+  const assignmentURL = `https://assignment11-server-xi.vercel.app/assignments/${assignmentId}`;
   const { data: assignmentData, isLoading } = useLoadData(assignmentURL, true);
 
   return (

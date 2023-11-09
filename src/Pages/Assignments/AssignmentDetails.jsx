@@ -44,7 +44,7 @@ const AssignmentDetails = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete(`http://localhost:5000/assignments/${id}`, {
+            .delete(`https://assignment11-server-xi.vercel.app/assignments/${id}`, {
               withCredentials: true,
             })
             .then((res) => {
@@ -91,7 +91,7 @@ const AssignmentDetails = () => {
       // });
     } else {
       axios
-        .post("http://localhost:5000/submittedAssignments", submittedData, {
+        .post("https://assignment11-server-xi.vercel.app/submittedAssignments", submittedData, {
           withCredentials: true,
         })
         .then((res) => {

@@ -6,7 +6,7 @@ import MyAssignmentsCard from "./MyAssignmentsCard";
 
 const MyAssignments = () => {
   const { user } = useAuth();
-  const url = `http://localhost:5000/submittedAssignments/${user?.email}`;
+  const url = `https://assignment11-server-xi.vercel.app/submittedAssignments/${user?.email}`;
   const { data: myAssignments, isLoading } = useLoadData(url, true);
 
   return (

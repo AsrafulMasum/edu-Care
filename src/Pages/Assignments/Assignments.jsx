@@ -24,7 +24,7 @@ const Assignments = () => {
     queryFn: async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/assignments?page=${currentPage}&size=${itemsPerPage}&filter=${filterBy}`
+          `https://assignment11-server-xi.vercel.app/assignments?page=${currentPage}&size=${itemsPerPage}&filter=${filterBy}`
         );
         setShowAssignment(response.data);
         return response.data;
@@ -42,7 +42,7 @@ const Assignments = () => {
   // useEffect(() => {
   //   axios
   //     .get(
-  //       `http://localhost:5000/assignments?page=${currentPage}&size=${itemsPerPage}&filter=${filterBy}`
+  //       `https://assignment11-server-xi.vercel.app/assignments?page=${currentPage}&size=${itemsPerPage}&filter=${filterBy}`
   //     )
   //     .then((res) => {
   //       setShowAssignment(res.data);

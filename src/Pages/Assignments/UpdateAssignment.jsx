@@ -70,7 +70,7 @@ const UpdateAssignment = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .put(`http://localhost:5000/assignments/${id}`, updatedAssignment, {
+          .put(`https://assignment11-server-xi.vercel.app/assignments/${id}`, updatedAssignment, {
             withCredentials: true,
           })
           .then((res) => {
