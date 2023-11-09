@@ -3,12 +3,20 @@ import useLoadData from "../../Hooks/useLoadData";
 import Container from "../../Layout/Container";
 import SubmittedAssignmentCard from "./SubmittedAssignmentCard";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 const SubmittedAssignments = () => {
   const submittedAssignmentsUrl = "/submittedAssignments";
   const submittedAssignmentData = useLoadData(submittedAssignmentsUrl, true);
 
-  const showData = submittedAssignmentData?.filter(assignment => assignment?.status === "pending")
+  const [showData, setShowData] = useState([]);
+
+  useEffect(() => {
+    const showPendingData = submittedAssignmentData?.filter(
+      (assignment) => assignment?.status === "pending"
+    );
+    setShowData(showPendingData);
+  }, [submittedAssignmentData]);
 
   const handleSubmit = (closeModal, assignmentData, assignment, e) => {
     e.preventDefault();
@@ -22,7 +30,7 @@ const SubmittedAssignments = () => {
     } else {
       axios
         .put(
-          `https://assignment11-server-xi.vercel.app/submittedAssignments/${assignment?._id}`,
+          `http://localhost:5000/submittedAssignments/${assignment?._id}`,
           examinerData,
           { withCredentials: true }
         )
@@ -33,6 +41,11 @@ const SubmittedAssignments = () => {
           }
         });
     }
+    const remaining = showData?.filter(
+      (data) => data?.difficulty !== "completed"
+    );
+    setShowData(remaining);
+    console.log(remaining);
   };
 
   return (

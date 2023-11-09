@@ -14,9 +14,8 @@ const Features = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-
           <div className="flex h-48">
-            <p className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 Assignment Creation
               </h5>
@@ -24,11 +23,11 @@ const Features = () => {
                 Highlight the ability for teachers to create, customize, and
                 publish assignments quickly and easily.
               </p>
-            </p>
+            </div>
           </div>
 
           <div className="flex h-48">
-            <p className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 Deadline Management
               </h5>
@@ -36,11 +35,11 @@ const Features = () => {
                 Emphasize the automatic deadline notifications and reminders
                 that help users stay organized and on track.
               </p>
-            </p>
+            </div>
           </div>
 
           <div className="flex h-48">
-            <p className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 Submission Tracking
               </h5>
@@ -48,11 +47,11 @@ const Features = () => {
                 Showcase the feature that allows students to submit their
                 assignments online and track their submission history.
               </p>
-            </p>
+            </div>
           </div>
 
           <div className="flex h-48">
-            <p className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 Grading and Feedback
               </h5>
@@ -60,11 +59,11 @@ const Features = () => {
                 Feature the grading system that enables teachers to efficiently
                 assess and provide feedback on assignments.
               </p>
-            </p>
+            </div>
           </div>
 
           <div className="flex h-48">
-            <p className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 Mobile Compatibility
               </h5>
@@ -72,11 +71,11 @@ const Features = () => {
                 Show that your platform is accessible on various devices,
                 including smartphones and tablets.
               </p>
-            </p>
+            </div>
           </div>
 
           <div className="flex h-48">
-            <p className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 Role-Based Access
               </h5>
@@ -84,7 +83,7 @@ const Features = () => {
                 Explain how the role-based access control ensures that each user
                 sees what&#39;s relevant to them.
               </p>
-            </p>
+            </div>
           </div>
         </div>
       </Container>

@@ -60,7 +60,7 @@ const AuthProvider = ({ children }) => {
       const loggedInUser = { email: userEmail };
       if (currentUser) {
         axios
-          .post("https://assignment11-server-xi.vercel.app/jwt", loggedInUser, {
+          .post("http://localhost:5000/jwt", loggedInUser, {
             withCredentials: true,
           })
           .then((res) => {
@@ -71,7 +71,7 @@ const AuthProvider = ({ children }) => {
           });
       } else {
         axios
-          .post("https://assignment11-server-xi.vercel.app/logout", loggedInUser, {
+          .post("http://localhost:5000/logout", loggedInUser, {
             withCredentials: true,
           })
           .then((res) => {

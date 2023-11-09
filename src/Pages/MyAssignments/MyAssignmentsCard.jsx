@@ -4,7 +4,7 @@ import { GiNotebook } from "react-icons/gi";
 
 const MyAssignmentsCard = ({ assignment }) => {
   const assignmentId = assignment?.assignmentID;
-  const assignmentURL = `https://assignment11-server-xi.vercel.app/assignments/${assignmentId}`;
+  const assignmentURL = `http://localhost:5000/assignments/${assignmentId}`;
   const assignmentData = useLoadData(assignmentURL, true);
 
   return (

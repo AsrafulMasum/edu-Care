@@ -65,7 +65,7 @@ const AssignmentCard = ({ assignment }) => {
             </div>
           </div>
 
-          <div className="flex items-center justify-between gap-4 mt-8 text-gray-700 dark:text-gray-200">
+          <div className="flex items-center justify-end gap-4 mt-8 text-gray-700 dark:text-gray-200">
             <Link
               to={`/assignmentDetails/${assignment?._id}`}
               className="btn px-10 normal-case bg-active-color border-none text-white font-bold tracking-wide"
