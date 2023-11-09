@@ -1,7 +1,50 @@
 import { Link } from "react-router-dom";
 import logo from "../../../public/favicon.png";
+import useAuth from "../../Hooks/useAuth";
 
 const Footer = () => {
+  const { user } = useAuth();
+
+  const navItems = (
+    <>
+      <Link className="link link-hover hover:text-active-color" to={"/"}>
+        Home
+      </Link>
+
+      <Link
+        className="link link-hover hover:text-active-color"
+        to={"/assignments"}
+      >
+        Assignments
+      </Link>
+
+      {user && (
+        <Link
+          className="link link-hover hover:text-active-color"
+          to={"/myAssignments"}
+        >
+          My Assignments
+        </Link>
+      )}
+      {user && (
+        <Link
+          className="link link-hover hover:text-active-color"
+          to={"/addAssignment"}
+        >
+          Add Assignment
+        </Link>
+      )}
+      {user && (
+        <Link
+          className="link link-hover hover:text-active-color"
+          to={"/submittedAssignments"}
+        >
+          Submitted Assignment
+        </Link>
+      )}
+    </>
+  );
+
   return (
     <div className="bg-white">
       <footer
@@ -61,10 +104,11 @@ const Footer = () => {
           </nav>
         </div>
         <nav className="grid grid-flow-col gap-4 text-white">
-          <Link to={'/'} className="link link-hover hover:text-active-color">Home</Link>
+          {/* <Link to={'/'} className="link link-hover hover:text-active-color">Home</Link>
           <Link to={'/assignments'} className="link link-hover hover:text-active-color">Assignments</Link>
           <Link to={'/aboutUs'} className="link link-hover hover:text-active-color">About us</Link>
-          <Link to={'/contact'} className="link link-hover hover:text-active-color">Contact</Link>
+          <Link to={'/contact'} className="link link-hover hover:text-active-color">Contact</Link> */}
+          {navItems}
         </nav>
 
         <aside className="bg-secondary-color w-full h-20">

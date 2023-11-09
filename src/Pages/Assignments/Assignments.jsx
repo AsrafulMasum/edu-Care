@@ -13,6 +13,8 @@ const Assignments = () => {
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const [filterBy, setFilterBy] = useState("");
 
+  console.log(currentPage, itemsPerPage);
+
   const { count } = useLoaderData();
   const numberOfPages = Math.ceil(count / itemsPerPage);
 
@@ -36,8 +38,12 @@ const Assignments = () => {
 
   useEffect(() => {
     refetch();
-    setCurrentPage(0);
-  }, [currentPage, itemsPerPage, filterBy, refetch]);
+  }, [refetch, currentPage, currentPage]);
+
+  useEffect(() => {
+    refetch();
+    setCurrentPage(0)
+  }, [refetch, filterBy]);
 
   // useEffect(() => {
   //   axios
