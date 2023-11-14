@@ -25,7 +25,7 @@ const AssignmentCard = ({ assignment }) => {
 
   return (
     <div>
-      <div className="w-full h-full flex flex-col overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+      <div className="w-full h-full flex flex-col overflow-hidden rounded-lg shadow-lg bg-gray-800">
         <img
           className="object-cover object-center w-full h-56"
           src={assignment?.photoURL}

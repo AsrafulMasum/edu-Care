@@ -26,7 +26,7 @@ const AssignmentDetails = () => {
   const assignmentID = assignment?._id;
 
   const exists = submittedAssignment?.find(
-    (assignment) => assignment?.assignmentID === assignmentID
+    (assignment) => assignment?.assignmentID === assignmentID && assignment?.status === "pending"
   );
 
   const navigate = useNavigate();
@@ -113,7 +113,7 @@ const AssignmentDetails = () => {
         <Loading></Loading>
       ) : (
         <Container>
-          <div className="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 my-12">
+          <div className="overflow-hidden rounded-lg shadow-md bg-gray-800 my-12">
             <img
               className="object-cover w-full h-64"
               src={assignment?.photoURL}

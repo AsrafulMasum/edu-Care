@@ -1,56 +1,15 @@
-import { toast } from "react-toastify";
 import useLoadData from "../../Hooks/useLoadData";
 import Container from "../../Layout/Container";
 import SubmittedAssignmentCard from "./SubmittedAssignmentCard";
-import axios from "axios";
-import { useEffect, useState } from "react";
 import Loading from "../Loading/Loading";
 
 const SubmittedAssignments = () => {
-  const submittedAssignmentsUrl = "/submittedAssignments";
-  const { data: submittedAssignmentData, isLoading } = useLoadData(
-    submittedAssignmentsUrl,
-    true
-  );
-
-  const [showData, setShowData] = useState([]);
-
-  useEffect(() => {
-    const showPendingData = submittedAssignmentData?.filter(
-      (assignment) => assignment?.status === "pending"
-    );
-    setShowData(showPendingData);
-  }, [submittedAssignmentData]);
-
-  const handleSubmit = (closeModal, assignmentData, assignment, e) => {
-    e.preventDefault();
-    const form = e.target;
-    const givenMarks = form.marks.value;
-    const feedback = form.feedback.value;
-    const examinerData = { givenMarks, feedback, status: "completed" };
-
-    if (givenMarks > assignmentData?.marks) {
-      toast.error("Please provide a valid marks.");
-    } else {
-      axios
-        .put(
-          `https://assignment11-server-xi.vercel.app/submittedAssignments/${assignment?._id}`,
-          examinerData,
-          { withCredentials: true }
-        )
-        .then((res) => {
-          if (res.data.modifiedCount > 0) {
-            toast.success("Reviewed Assignment.");
-            closeModal();
-          }
-        });
-    }
-    const remaining = showData?.filter(
-      (data) => data?.difficulty !== "completed"
-    );
-    setShowData(remaining);
-    console.log(remaining);
-  };
+  const submittedAssignmentsUrl = "/submittedAssignments?status=pending";
+  const {
+    data: showData,
+    isLoading,
+    refetch,
+  } = useLoadData(submittedAssignmentsUrl, true);
 
   return (
     <div>
@@ -66,17 +25,26 @@ const SubmittedAssignments = () => {
               Submitted Assignments
             </h2>
           </div>
-          <Container>
-            <div className="my-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {showData?.map((assignment) => (
-                <SubmittedAssignmentCard
-                  key={assignment?._id}
-                  assignment={assignment}
-                  handleSubmit={handleSubmit}
-                ></SubmittedAssignmentCard>
-              ))}
-            </div>
-          </Container>
+          <div>
+            {showData?.length > 0 ? (
+              <Container>
+                <div className="my-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {showData?.map((assignment) => (
+                    <SubmittedAssignmentCard
+                      key={assignment?._id}
+                      assignment={assignment}
+                      refetch={refetch}
+                    ></SubmittedAssignmentCard>
+                  ))}
+                </div>
+              </Container>
+            ) : (
+              <div className="flex flex-col gap-4 justify-center items-center min-h-[60vh]">
+                <h3 className="text-6xl">Oops !!!</h3>
+                <p className="text-4xl">No assignments has been submitted.</p>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

@@ -3,7 +3,6 @@ import axios from "axios";
 import Container from "../../Layout/Container";
 import AssignmentCard from "./AssignmentCard";
 import { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../Loading/Loading";
 
@@ -12,10 +11,15 @@ const Assignments = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const [filterBy, setFilterBy] = useState("");
+  const [count, setCount] = useState(null)
 
-  console.log(currentPage, itemsPerPage);
 
-  const { count } = useLoaderData();
+  useEffect(() => {
+    axios.get(`https://assignment11-server-xi.vercel.app/assignments?filter=${filterBy}`)
+    .then(res => setCount(res.data.length))
+  },[filterBy])
+
+
   const numberOfPages = Math.ceil(count / itemsPerPage);
 
   const pages = [...Array(numberOfPages).keys()];
@@ -158,7 +162,7 @@ const Assignments = () => {
                 className="btn bg-active-color mr-1 focus:bg-primary-color focus:text-white"
                 key={idx}
               >
-                {page}
+                {page+1}
               </button>
             ))}
           </div>

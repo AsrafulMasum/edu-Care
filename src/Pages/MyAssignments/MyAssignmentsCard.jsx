@@ -13,7 +13,7 @@ const MyAssignmentsCard = ({ assignment }) => {
       {isLoading ? (
         <Loading></Loading>
       ) : (
-        <div className="w-full h-full px-4 py-3 bg-white rounded-md shadow-md dark:bg-gray-800">
+        <div className="w-full h-full px-4 py-3 rounded-md shadow-md bg-gray-800">
           <div className="flex items-center justify-between">
             <span className="text-sm font-light text-gray-400 flex items-center gap-2">
               <GiNotebook className="text-white text-lg "></GiNotebook>

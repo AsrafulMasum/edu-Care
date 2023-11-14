@@ -108,7 +108,7 @@ const LogIn = () => {
             </div>
             <a
               href="#"
-              className="text-xs text-primary font-bold hover:underline"
+              className="text-xs text-active-color font-bold hover:underline"
             >
               Forget Password?
             </a>
@@ -118,8 +118,8 @@ const LogIn = () => {
             <button
               className={
                 dark
-                  ? "w-full px-6 py-2.5 text-sm font-medium tracking-wide rounded-sm bg-primary text-white"
-                  : "w-full px-6 py-2.5 text-sm font-medium tracking-wide rounded-sm bg-primary"
+                  ? "w-full px-6 py-2.5 text-sm font-medium tracking-wide rounded-sm bg-active-color text-white"
+                  : "w-full px-6 py-2.5 text-sm font-medium tracking-wide rounded-sm bg-active-color"
               }
             >
               Sign In
@@ -132,7 +132,7 @@ const LogIn = () => {
           Don&#39;t have an account?{" "}
           <Link
             to={"/signUp"}
-            className="font-medium text-primary hover:underline"
+            className="font-medium text-active-color hover:underline"
           >
             Create One
           </Link>

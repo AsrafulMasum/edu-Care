@@ -25,7 +25,7 @@ const UpdateAssignment = () => {
       selectOption.value = "Easy";
     } else if (assignment?.difficulty === "Medium") {
       selectOption.value = "Medium";
-    } else {
+    } else if(assignment?.difficulty === "Hard") {
       selectOption.value = "Hard";
     }
     // const prevDate = new Date(assignment?.endDate)

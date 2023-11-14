@@ -7,11 +7,11 @@ import useData from "../../Hooks/useData";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { pdfjs } from "react-pdf";
+import Loading from "../Loading/Loading";
 import { toast } from "react-toastify";
 import axios from "axios";
-import Loading from "../Loading/Loading";
 
-const SubmittedAssignmentCard = ({ assignment }) => {
+const SubmittedAssignmentCard = ({ assignment, refetch }) => {
   const { dark } = useData();
   const { user } = useAuth();
 
@@ -82,6 +82,7 @@ const SubmittedAssignmentCard = ({ assignment }) => {
           if (res.data.modifiedCount > 0) {
             toast.success("Reviewed Assignment.");
             closeModal();
+            refetch();
           }
         });
     }
@@ -92,7 +93,7 @@ const SubmittedAssignmentCard = ({ assignment }) => {
       {isLoading || loadingUser ? (
         <Loading></Loading>
       ) : (
-        <div className="overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+        <div className="overflow-hidden rounded-lg shadow-lg bg-gray-800">
           <div className="px-4 py-2 flex justify-between">
             <h1 className="font-bold text-gray-800 dark:text-white">
               {assignmentData?.title}
@@ -283,5 +284,5 @@ export default SubmittedAssignmentCard;
 
 SubmittedAssignmentCard.propTypes = {
   assignment: PropTypes.object,
-  handleSubmit: PropTypes.func,
+  refetch: PropTypes.func,
 };

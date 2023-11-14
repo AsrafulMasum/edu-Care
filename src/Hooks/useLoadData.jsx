@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const useLoadData = (url, credentials) => {
   const axiosSecure = useAxiosSecure();
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ['loadData', url, credentials],
     queryFn: async () => {
       const response = await axiosSecure.get(url, { withCredentials: credentials });
@@ -12,7 +12,7 @@ const useLoadData = (url, credentials) => {
     },
   });
 
-  return { data, isLoading };
+  return { data, isLoading, refetch };
   // const [data, setData] = useState([]);
   // useEffect(() => {
   //   axiosSecure.get(url, { withCredentials: credentials }).then((res) => {

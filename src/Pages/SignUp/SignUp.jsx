@@ -170,8 +170,8 @@ const SignUp = () => {
           <button
             className={
               dark
-                ? "w-full px-6 py-2.5 text-sm font-medium tracking-wide rounded-sm bg-primary text-white"
-                : "w-full px-6 py-2.5 text-sm font-medium tracking-wide rounded-sm bg-primary"
+                ? "w-full px-6 py-2.5 text-sm font-medium tracking-wide rounded-sm bg-active-color text-white"
+                : "w-full px-6 py-2.5 text-sm font-medium tracking-wide rounded-sm bg-active-color"
             }
           >
             Sign Up
@@ -184,7 +184,7 @@ const SignUp = () => {
         Already have an account?{" "}
         <Link
           to={"/logIn"}
-          className="font-medium text-primary hover:underline"
+          className="font-medium text-active-color hover:underline"
         >
           Sign In
         </Link>
