@@ -1,5 +1,4 @@
 import axios from "axios";
-// import useLoadData from "../../Hooks/useLoadData";
 import Container from "../../Layout/Container";
 import AssignmentCard from "./AssignmentCard";
 import { useEffect, useState } from "react";
@@ -49,16 +48,6 @@ const Assignments = () => {
     setCurrentPage(0)
   }, [refetch, filterBy]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `https://assignment11-server-xi.vercel.app/assignments?page=${currentPage}&size=${itemsPerPage}&filter=${filterBy}`
-  //     )
-  //     .then((res) => {
-  //       setShowAssignment(res.data);
-  //     });
-  // }, [currentPage, itemsPerPage, filterBy]);
-
   // responsive design change the itemPerPage state value functionality
   useEffect(() => {
     const handleResize = () => {
@@ -79,25 +68,16 @@ const Assignments = () => {
   const handleFilter = (filter) => {
     if (filter === "All") {
       setFilterBy(filter);
-      // setShowAssignment(allAssignmentData);
+
     } else if (filter === "Easy") {
       setFilterBy(filter);
-      // const easy = allAssignmentData?.filter(
-      //   (assignment) => assignment?.difficulty === "Easy"
-      // );
-      // setShowAssignment(easy);
+
     } else if (filter === "Medium") {
       setFilterBy(filter);
-      // const medium = allAssignmentData?.filter(
-      //   (assignment) => assignment?.difficulty === "Medium"
-      // );
-      // setShowAssignment(medium);
+
     } else if (filter === "Hard") {
       setFilterBy(filter);
-      // const hard = allAssignmentData?.filter(
-      //   (assignment) => assignment?.difficulty === "Hard"
-      // );
-      // setShowAssignment(hard);
+
     }
   };
 
