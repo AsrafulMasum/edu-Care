@@ -103,11 +103,7 @@ const Footer = () => {
             </div>
           </nav>
         </div>
-        <nav className="grid grid-flow-col gap-4 text-white">
-          {/* <Link to={'/'} className="link link-hover hover:text-active-color">Home</Link>
-          <Link to={'/assignments'} className="link link-hover hover:text-active-color">Assignments</Link>
-          <Link to={'/aboutUs'} className="link link-hover hover:text-active-color">About us</Link>
-          <Link to={'/contact'} className="link link-hover hover:text-active-color">Contact</Link> */}
+        <nav className="flex justify-center items-center flex-wrap gap-4 text-white px-4">
           {navItems}
         </nav>
 

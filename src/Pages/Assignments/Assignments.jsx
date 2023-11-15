@@ -4,20 +4,24 @@ import AssignmentCard from "./AssignmentCard";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../Loading/Loading";
+import useData from "../../Hooks/useData";
 
 const Assignments = () => {
+  const { dark } = useData();
+
   const [showAssignment, setShowAssignment] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const [filterBy, setFilterBy] = useState("");
-  const [count, setCount] = useState(null)
-
+  const [count, setCount] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://assignment11-server-xi.vercel.app/assignments?filter=${filterBy}`)
-    .then(res => setCount(res.data.length))
-  },[filterBy])
-
+    axios
+      .get(
+        `https://assignment11-server-xi.vercel.app/assignments?filter=${filterBy}`
+      )
+      .then((res) => setCount(res.data.length));
+  }, [filterBy]);
 
   const numberOfPages = Math.ceil(count / itemsPerPage);
 
@@ -45,7 +49,7 @@ const Assignments = () => {
 
   useEffect(() => {
     refetch();
-    setCurrentPage(0)
+    setCurrentPage(0);
   }, [refetch, filterBy]);
 
   // responsive design change the itemPerPage state value functionality
@@ -68,16 +72,12 @@ const Assignments = () => {
   const handleFilter = (filter) => {
     if (filter === "All") {
       setFilterBy(filter);
-
     } else if (filter === "Easy") {
       setFilterBy(filter);
-
     } else if (filter === "Medium") {
       setFilterBy(filter);
-
     } else if (filter === "Hard") {
       setFilterBy(filter);
-
     }
   };
 
@@ -92,7 +92,7 @@ const Assignments = () => {
               <p className="tracking-widest font-bold text-primary-color">
                 All The Assignments Are Here
               </p>
-              <h2 className="text-4xl text-secondary-color font-semibold">
+              <h2 className={dark ? "text-4xl text-white font-semibold" : "text-4xl text-secondary-color font-semibold"}>
                 Assignments
               </h2>
               {/* filter button */}
@@ -135,14 +135,14 @@ const Assignments = () => {
             </div>
           </div>
           {/* pagination button */}
-          <div className="text-center mb-10">
+          <div className="mb-10 flex justify-center items-center flex-wrap">
             {pages?.map((page, idx) => (
               <button
                 onClick={() => setCurrentPage(page)}
-                className="btn bg-active-color mr-1 focus:bg-primary-color focus:text-white"
+                className="btn bg-active-color mr-1 focus:bg-primary-color text-white mb-1"
                 key={idx}
               >
-                {page+1}
+                {page + 1}
               </button>
             ))}
           </div>

@@ -55,18 +55,6 @@ const AddAssignment = () => {
       }
     });
   };
-  // const {isPending, error, data} = useQuery({
-  //   queryKey: ['assignment-post'],
-  //   queryFn: () => {
-  //     axios.post(url, assignmentData)
-  //     .then(res => console.log(res.data))
-  //   }
-  // })
-
-  // useEffect(() => {
-  //   const response = usePostData(url, assignmentData)
-  //   console.log(response);
-  // } , [])
 
   return (
     <div

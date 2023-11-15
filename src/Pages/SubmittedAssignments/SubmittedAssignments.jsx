@@ -2,8 +2,11 @@ import useLoadData from "../../Hooks/useLoadData";
 import Container from "../../Layout/Container";
 import SubmittedAssignmentCard from "./SubmittedAssignmentCard";
 import Loading from "../Loading/Loading";
+import useData from "../../Hooks/useData";
 
 const SubmittedAssignments = () => {
+  const { dark } = useData();
+
   const submittedAssignmentsUrl = "/submittedAssignments?status=pending";
   const {
     data: showData,
@@ -21,7 +24,13 @@ const SubmittedAssignments = () => {
             <p className="tracking-widest font-bold text-primary-color">
               All The Submitted Assignments Are Here
             </p>
-            <h2 className="text-4xl text-secondary-color font-semibold">
+            <h2
+              className={
+                dark
+                  ? "text-4xl text-white font-semibold"
+                  : "text-4xl text-secondary-color font-semibold"
+              }
+            >
               Submitted Assignments
             </h2>
           </div>

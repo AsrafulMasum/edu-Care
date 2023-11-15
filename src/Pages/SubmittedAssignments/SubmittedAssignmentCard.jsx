@@ -95,10 +95,10 @@ const SubmittedAssignmentCard = ({ assignment, refetch }) => {
       ) : (
         <div className="overflow-hidden rounded-lg shadow-lg bg-gray-800">
           <div className="px-4 py-2 flex justify-between">
-            <h1 className="font-bold text-gray-800 dark:text-white">
+            <h1 className="font-bold text-white">
               {assignmentData?.title}
             </h1>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
+            <p className="mt-1 text-sm text-gray-400 flex items-center gap-2">
               <GiNotebook className="text-white text-lg "></GiNotebook>
               {assignmentData?.marks}
             </p>
@@ -118,7 +118,7 @@ const SubmittedAssignmentCard = ({ assignment, refetch }) => {
                 alt="Avatar"
               />
               <p
-                className="ml-4 font-semibold text-gray-700 dark:text-gray-200"
+                className="ml-4 font-semibold text-gray-200"
                 tabIndex="0"
                 role="link"
               >

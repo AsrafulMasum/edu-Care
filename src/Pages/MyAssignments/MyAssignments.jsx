@@ -3,8 +3,10 @@ import useLoadData from "../../Hooks/useLoadData";
 import Container from "../../Layout/Container";
 import Loading from "../Loading/Loading";
 import MyAssignmentsCard from "./MyAssignmentsCard";
+import useData from "../../Hooks/useData";
 
 const MyAssignments = () => {
+  const { dark } = useData();
   const { user } = useAuth();
   const url = `https://assignment11-server-xi.vercel.app/submittedAssignments/${user?.email}`;
   const { data: myAssignments, isLoading } = useLoadData(url, true);
@@ -19,7 +21,13 @@ const MyAssignments = () => {
             <p className="tracking-widest font-bold text-primary-color">
               All The Assignments Submitted By Me
             </p>
-            <h2 className="text-4xl text-secondary-color font-semibold">
+            <h2
+              className={
+                dark
+                  ? "text-4xl text-white font-semibold"
+                  : "text-4xl text-secondary-color font-semibold"
+              }
+            >
               My Submitted Assignments
             </h2>
           </div>

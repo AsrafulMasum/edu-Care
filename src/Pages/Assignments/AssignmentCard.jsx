@@ -51,21 +51,21 @@ const AssignmentCard = ({ assignment }) => {
 
         <div className="px-6 py-4 flex-grow flex flex-col">
           <div className="flex-grow">
-            <h1 className="text-xl font-semibold text-gray-800 dark:text-white">
+            <h1 className="text-xl font-semibold text-white">
               {assignment?.title}
             </h1>
 
-            <p className="py-2 text-gray-700 dark:text-gray-400">
+            <p className="py-2 text-gray-400">
               {assignment?.description}
             </p>
 
-            <div className="flex items-center mt-2 text-gray-700 dark:text-gray-200">
+            <div className="flex items-center mt-2 text-gray-200">
               <SlCalender></SlCalender>
               <h1 className="px-2 text-sm">{assignment?.dueDate}</h1>
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-4 mt-8 text-gray-700 dark:text-gray-200">
+          <div className="flex items-center justify-end gap-4 mt-8 text-gray-200">
             <Link
               to={`/assignmentDetails/${assignment?._id}`}
               className="btn px-10 normal-case bg-active-color border-none text-white font-bold tracking-wide"
